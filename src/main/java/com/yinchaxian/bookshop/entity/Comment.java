@@ -3,19 +3,18 @@ package com.yinchaxian.bookshop.entity;
 import java.sql.Timestamp;
 
 public class Comment {
-    private int commentId;
+    private long commentId;
     private int bookId;
     private int userId;
     private String username;
     private Timestamp date;
     private String content;
-    private String flag;
 
-    public int getCommentId() {
+    public long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(long commentId) {
         this.commentId = commentId;
     }
 
@@ -57,13 +56,5 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getFlag() {
-        return flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
     }
 }

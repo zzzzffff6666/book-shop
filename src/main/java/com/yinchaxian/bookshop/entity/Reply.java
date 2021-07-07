@@ -4,13 +4,10 @@ import java.sql.Timestamp;
 
 public class Reply {
     private int replyId;
-    private String type;
-    private String title;
-    private String content;
     private int userId;
     private String username;
     private Timestamp date;
-    private String userIp;
+    private String content;
 
     public int getReplyId() {
         return replyId;
@@ -18,30 +15,6 @@ public class Reply {
 
     public void setReplyId(int replyId) {
         this.replyId = replyId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public int getUserId() {
@@ -68,11 +41,11 @@ public class Reply {
         this.date = date;
     }
 
-    public String getUserIp() {
-        return userIp;
+    public String getContent() {
+        return content;
     }
 
-    public void setUserIp(String userIp) {
-        this.userIp = userIp;
+    public void setContent(String content) {
+        this.content = content;
     }
 }
