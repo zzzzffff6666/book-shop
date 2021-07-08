@@ -3,10 +3,10 @@ package com.yinchaxian.bookshop.entity;
 import java.sql.Timestamp;
 
 public class OrderDetail {
-    private int orderDetailId;
-    private String orderNumber;
     private String orderId;
     private long bookId;
+    private String bookName;
+    private String imageUrl;
     private int storeId;
     private int mount;
     private float unitPrice;
@@ -14,25 +14,7 @@ public class OrderDetail {
     private String postStatus;
     private Timestamp deliveryTime;
     private String receiveStatus;
-    private String imageUrl;
-    private String bookName;
-    private String score;
-
-    public int getOrderDetailId() {
-        return orderDetailId;
-    }
-
-    public void setOrderDetailId(int orderDetailId) {
-        this.orderDetailId = orderDetailId;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
+    private int score;
 
     public String getOrderId() {
         return orderId;
@@ -48,6 +30,22 @@ public class OrderDetail {
 
     public void setBookId(long bookId) {
         this.bookId = bookId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getStoreId() {
@@ -106,27 +104,11 @@ public class OrderDetail {
         this.receiveStatus = receiveStatus;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 }

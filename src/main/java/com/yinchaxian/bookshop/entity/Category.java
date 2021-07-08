@@ -2,13 +2,11 @@ package com.yinchaxian.bookshop.entity;
 
 import java.sql.Timestamp;
 
-public class BookCategory {
+public class Category {
     private int cateId;
     private int parentId;
     private String name;
-    private int status;
     private int sortOrder;
-    private boolean isParent;
     private Timestamp created;
     private Timestamp updated;
 
@@ -36,28 +34,12 @@ public class BookCategory {
         this.name = name;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public int getSortOrder() {
         return sortOrder;
     }
 
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
-    }
-
-    public boolean isParent() {
-        return isParent;
-    }
-
-    public void setParent(boolean parent) {
-        isParent = parent;
     }
 
     public Timestamp getCreated() {

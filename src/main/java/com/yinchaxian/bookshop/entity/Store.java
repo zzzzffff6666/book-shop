@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 public class Store {
     private int storeId;
     private int managerId;
-    private String storeName;
-    private String storePhone;
-    private String storePosition;
+    private String name;
+    private String phone;
+    private String position;
     private Timestamp created;
     private Timestamp updated;
 
@@ -27,28 +27,28 @@ public class Store {
         this.managerId = managerId;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public String getName() {
+        return name;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getStorePhone() {
-        return storePhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setStorePhone(String storePhone) {
-        this.storePhone = storePhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getStorePosition() {
-        return storePosition;
+    public String getPosition() {
+        return position;
     }
 
-    public void setStorePosition(String storePosition) {
-        this.storePosition = storePosition;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public Timestamp getCreated() {

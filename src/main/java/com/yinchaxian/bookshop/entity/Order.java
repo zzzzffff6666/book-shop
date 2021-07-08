@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class Order {
     private String orderId;
     private int userId;
+    private int receiverId;
     private float price;
     private float postFee;
     private int paymentType;
@@ -34,6 +35,14 @@ public class Order {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
     }
 
     public float getPrice() {

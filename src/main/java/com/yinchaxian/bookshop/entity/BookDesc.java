@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class BookDesc {
     private long bookId;
-    private String bookDesc;
+    private String desc;
     private Timestamp created;
     private Timestamp updated;
 
@@ -16,12 +16,12 @@ public class BookDesc {
         this.bookId = bookId;
     }
 
-    public String getBookDesc() {
-        return bookDesc;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setBookDesc(String bookDesc) {
-        this.bookDesc = bookDesc;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Timestamp getCreated() {

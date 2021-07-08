@@ -1,15 +1,15 @@
 package com.yinchaxian.bookshop.entity;
 
-public class BxBookRating {
-    private long userId;
+public class BookRate {
+    private int userId;
     private long bookId;
     private int score;
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

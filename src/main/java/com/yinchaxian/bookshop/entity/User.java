@@ -11,7 +11,7 @@ public class User {
     private String phone;
     private int age;
     private String county;
-    private String detailAddress;
+    private String address;
     private String identity;
     private Timestamp created;
     private Timestamp updated;
@@ -80,12 +80,12 @@ public class User {
         this.county = county;
     }
 
-    public String getDetailAddress() {
-        return detailAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDetailAddress(String detailAddress) {
-        this.detailAddress = detailAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getIdentity() {

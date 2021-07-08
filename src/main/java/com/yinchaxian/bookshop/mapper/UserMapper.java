@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public interface UserMapper {
     @Insert("insert into user " +
             "values(null, #{username}, #{nickname}, #{password}, " +
-            "#{email}, #{phone}, #{age}, #{country}, #{detailAddress}, " +
+            "#{email}, #{phone}, #{age}, #{country}, #{address}, " +
             "#{identity}, #{created}, #{updated})")
     @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
     int insert(User user);
@@ -30,7 +30,7 @@ public interface UserMapper {
     @Update("update user " +
             "set phone = #{phone}, " +
             "country = #{country}, " +
-            "detail_address = #{detailAddress}, " +
+            "address = #{address}, " +
             "updated = #{updated} " +
             "where user_id = #{userId}")
     int updateAddress(User user);

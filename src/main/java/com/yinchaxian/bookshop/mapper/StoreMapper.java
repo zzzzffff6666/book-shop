@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StoreMapper {
     @Insert("insert into store " +
-            "values(null, #{managerId}, #{storeName}, #{storePhone}, #{storePosition}, #{created}, #{updated})")
+            "values(null, #{managerId}, #{name}, #{phone}, #{position}, #{created}, #{updated})")
     @Options(useGeneratedKeys = true, keyProperty = "storeId", keyColumn = "store_id")
     int insert(Store store);
 
@@ -17,9 +17,9 @@ public interface StoreMapper {
 
     @Update("update store " +
             "set manager_id = #{managerId}, " +
-            "store_name = #{storeName}, " +
-            "store_phone = #{storePhone}, " +
-            "store_position = #{storePosition}, " +
+            "name = #{name}, " +
+            "phone = #{phone}, " +
+            "position = #{position}, " +
             "updated = #{updated} " +
             "where store_id = #{storeId}")
     int update(Store store);
@@ -32,7 +32,8 @@ public interface StoreMapper {
 
     @Select("select * " +
             "from store " +
-            "where store_name like '%${pattern}%'")
+            "where name like '%${pattern}%' " +
+            "limit #{offset}, #{amount}")
     @ResultType(Store.class)
-    List<Store> search(String pattern);
+    List<Store> search(String pattern, int offset, int amount);
 }
