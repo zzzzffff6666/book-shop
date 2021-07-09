@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserRoleMapper {
     @Insert("insert into user_role " +
             "values(#{userId}, #{roleId})")
-    int insert(int userId, int roleId, Timestamp created);
+    int insert(int userId, int roleId);
 
     @Delete("delete from user_role " +
             "where user_id = #{userId} " +

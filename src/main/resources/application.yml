@@ -15,7 +15,27 @@ mybatis:
 server:
   port: 8080
 
-logging:
-  file:
-    path: classpath:/log
-    name: shop.log
+#logging:
+#  file:
+#    path: classpath:/log
+#    name: shop.log
+
+default:
+  page:
+    amount:
+      user: 20
+      book: 50
+      comment: 10
+      store: 20
+      category: 30
+  hint:
+    error:
+      login: 用户名户密码错误
+      register: 注册失败
+      name: 用户名已存在
+      password: 密码错误
+      insert: 添加失败
+      delete: 删除失败
+      update: 更新失败
+      select: 无结果
+

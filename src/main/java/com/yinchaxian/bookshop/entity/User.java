@@ -13,6 +13,7 @@ public class User {
     private String county;
     private String address;
     private String identity;
+    private String salt;
     private Timestamp created;
     private Timestamp updated;
 
@@ -94,6 +95,14 @@ public class User {
 
     public void setIdentity(String identity) {
         this.identity = identity;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public Timestamp getCreated() {

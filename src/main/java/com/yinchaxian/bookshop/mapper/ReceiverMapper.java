@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface ReceiverMapper {
     @Insert("insert into receiver " +
-            "values(#{receiverId}, #{userId}, #{name}, #{phone}, #{state}, #{city}, " +
-            "#{district}, #{address}, #{zip}, #{created), #{updated}")
+            "values(null, #{userId}, #{name}, #{phone}, #{state}, #{city}, " +
+            "#{district}, #{address}, #{zip}, #{created}, #{updated})")
+    @Options(useGeneratedKeys = true, keyProperty = "receiverId", keyColumn = "receiver_id")
     int insert(Receiver receiver);
 
     @Delete("delete from receiver " +

@@ -38,4 +38,14 @@ public interface RoleMapper {
             "</script>")
     @ResultType(Role.class)
     List<Role> selectList(@Param("list") List<Integer> list);
+
+    @Select("<script> " +
+            "select name " +
+            "from role " +
+            "where role_id in " +
+            "<foreach item='item' index='index' collection='list' open='(' separator=',' close=')'>" +
+            "#{item}" +
+            "</foreach> " +
+            "</script>")
+    List<String> selectNameList(@Param("list") List<Integer> list);
 }

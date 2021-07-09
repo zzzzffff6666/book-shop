@@ -40,4 +40,14 @@ public interface PrivilegeMapper {
             "</script>")
     @ResultType(Privilege.class)
     List<Privilege> selectList(@Param("list") List<Integer> list);
+
+    @Select("<script> " +
+            "select url " +
+            "from privilege " +
+            "where privilege_id in " +
+            "<foreach item='item' index='index' collection='list' open='(' separator=',' close=')'>" +
+            "#{item}" +
+            "</foreach> " +
+            "</script>")
+    List<String> selectUrlList(@Param("list") List<Integer> list);
 }
