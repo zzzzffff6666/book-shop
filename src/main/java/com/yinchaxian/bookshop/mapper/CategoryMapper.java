@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CategoryMapper {
     @Insert("insert into category " +
-            "values(null, #{parentId}, #{name}, #{sortOrder}, #{created}, #{updated})")
+            "values(null, #{parentId}, #{name}, #{sortOrder})")
     @Options(useGeneratedKeys = true, keyProperty = "cateId", keyColumn = "cate_id")
     int insert(Category category);
 
@@ -18,17 +18,15 @@ public interface CategoryMapper {
     @Update("update category " +
             "set parent_id = #{parentId}, " +
             "name = #{name}, " +
-            "sort_order = #{sortOrder}, " +
-            "updated = #{updated} " +
+            "sort_order = #{sortOrder} " +
             "where cate_id = #{cateId}")
     int update(Category category);
 
     @Select("select * " +
             "from category " +
-            "where cate_id = #{cateId} " +
-            "limit #{offset}, #{amount}")
+            "where cate_id = #{cateId}")
     @ResultType(Category.class)
-    Category select(int cateId, int offset, int amount);
+    Category select(int cateId);
 
     @Select("select * " +
             "from category " +
@@ -38,8 +36,8 @@ public interface CategoryMapper {
 
     @Select("select * " +
             "from category " +
-            "where name like '%${pattern}%' " +
+            "where name like '%${name}%' " +
             "limit #{offset}, #{amount}")
     @ResultType(Category.class)
-    List<Category> search(String pattern, int offset, int amount);
+    List<Category> searchByName(String name, int offset, int amount);
 }

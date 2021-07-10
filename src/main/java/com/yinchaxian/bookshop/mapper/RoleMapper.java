@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RoleMapper {
     @Insert("insert into role " +
-            "values(null, #{name}, #{description}, #{created}, #{updated})")
+            "values(null, #{name}, #{description})")
     @Options(useGeneratedKeys = true, keyProperty = "roleId", keyColumn = "role_id")
     int insert(Role role);
 
@@ -17,8 +17,7 @@ public interface RoleMapper {
 
     @Update("update role " +
             "set name = #{name}, " +
-            "description = #{description}, " +
-            "updated = #{updated} " +
+            "description = #{description} " +
             "where role_id = #{roleId}")
     int update(Role role);
 
@@ -27,6 +26,11 @@ public interface RoleMapper {
             "where role_id = #{roleId}")
     @ResultType(Role.class)
     Role select(int role_id);
+
+    @Select("select * " +
+            "from role")
+    @ResultType(Role.class)
+    List<Role> selectAll();
 
     @Select("<script> " +
             "select * " +

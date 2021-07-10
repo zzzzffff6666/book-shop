@@ -6,7 +6,6 @@ import com.yinchaxian.bookshop.mapper.UserRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -28,12 +27,12 @@ public class UserService {
         return userMapper.updateInfo(user) == 1;
     }
 
-    public boolean updateUserPassword(int userId, String password, String salt, Timestamp updated) {
-        return userMapper.updatePassword(userId, password, salt, updated) == 1;
+    public boolean updateUserPassword(int userId, String password, String salt) {
+        return userMapper.updatePassword(userId, password, salt) == 1;
     }
 
     public boolean isExist(String username) {
-        return userMapper.selectUsername(username) >= 1;
+        return userMapper.isExist(username) >= 1;
     }
 
     public User selectUser(int userId) {

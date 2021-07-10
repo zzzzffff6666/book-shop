@@ -31,6 +31,10 @@ public class RoleService {
         return roleMapper.select(roleId);
     }
 
+    public List<Role> selectAllRole() {
+        return roleMapper.selectAll();
+    }
+
     public List<Role> selectRoleList(List<Integer> list) {
         return roleMapper.selectList(list);
     }

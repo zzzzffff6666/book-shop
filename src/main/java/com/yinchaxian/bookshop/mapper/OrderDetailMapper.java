@@ -3,6 +3,8 @@ package com.yinchaxian.bookshop.mapper;
 import com.yinchaxian.bookshop.entity.OrderDetail;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 public interface OrderDetailMapper {
     @Insert("insert into order_detail " +
             "values(#{orderId}, #{bookId}, #{bookName}, #{imageUrl}, #{storeId}, #{mount}, " +
@@ -37,4 +39,10 @@ public interface OrderDetailMapper {
             "where order_id = #{orderId}")
     @ResultType(OrderDetail.class)
     OrderDetail select(String orderId);
+
+    @Select("select * " +
+            "from order_detail " +
+            "where order_id = #{orderId}")
+    @ResultType(OrderDetail.class)
+    List<OrderDetail> selectByBook(long bookId);
 }

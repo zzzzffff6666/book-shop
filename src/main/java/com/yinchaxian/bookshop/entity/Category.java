@@ -1,14 +1,10 @@
 package com.yinchaxian.bookshop.entity;
 
-import java.sql.Timestamp;
-
 public class Category {
     private int cateId;
     private int parentId;
     private String name;
     private int sortOrder;
-    private Timestamp created;
-    private Timestamp updated;
 
     public int getCateId() {
         return cateId;
@@ -40,21 +36,5 @@ public class Category {
 
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
-    }
-
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public void setCreated(Timestamp created) {
-        this.created = created;
-    }
-
-    public Timestamp getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Timestamp updated) {
-        this.updated = updated;
     }
 }

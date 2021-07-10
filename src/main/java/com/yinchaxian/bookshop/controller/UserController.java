@@ -1,21 +1,20 @@
 package com.yinchaxian.bookshop.controller;
 
+import com.yinchaxian.bookshop.entity.Role;
 import com.yinchaxian.bookshop.entity.User;
 import com.yinchaxian.bookshop.http.Result;
+import com.yinchaxian.bookshop.service.RoleService;
 import com.yinchaxian.bookshop.service.UserService;
-import com.yinchaxian.bookshop.utils.TimeUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +42,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @PostMapping("/login")
     public Result login(@RequestBody User user) {
@@ -67,11 +68,13 @@ public class UserController {
         String encodedPassword = new SimpleHash("md5", user.getPassword(), salt, 2).toString();
         user.setSalt(salt);
         user.setPassword(encodedPassword);
-        Timestamp t = TimeUtil.getCurrentTime();
-        user.setCreated(t);
-        user.setUpdated(t);
         boolean suc = userService.insertUser(user);
-        return suc ? Result.success() : Result.error(registerError);
+        if (suc) {
+            // 注册成功给该用户分配普通用户角色
+            userService.insertUserRole(user.getUserId(), 7);
+            return Result.success();
+        }
+        else return Result.error(registerError);
     }
 
     @DeleteMapping("/user/{userId}")
@@ -98,7 +101,7 @@ public class UserController {
         String newPassword = params.get("new");
         String salt = RandomStringUtils.random(30, true, true);
         String newEncodePassword = new SimpleHash("md5", newPassword, salt, 2).toString();
-        boolean suc = userService.updateUserPassword(userId, newEncodePassword, salt, TimeUtil.getCurrentTime());
+        boolean suc = userService.updateUserPassword(userId, newEncodePassword, salt);
         return suc ? Result.success() : Result.error(updateError);
     }
 
@@ -112,6 +115,38 @@ public class UserController {
     public Result selectAllUser(@PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
         List<User> list = userService.selectAllUser((page - 1) * userPageAmount, userPageAmount);
+        return list.isEmpty() ? Result.error(selectError) : Result.success(list);
+    }
+
+    @PutMapping("/user_role/{userId}")
+    public Result insertUserRole(@RequestBody List<Integer> list, @PathVariable("userId") int userId) {
+        for (int roleId : list) {
+            if (!userService.insertUserRole(userId, roleId)) {
+                return Result.error(insertError);
+            }
+        }
+        return Result.success();
+    }
+
+    @DeleteMapping("/user_role/{userId}")
+    public Result deleteUserRole(@RequestBody List<Integer> list, @PathVariable("userId") int userId) {
+        for (int roleId : list) {
+            if (!userService.deleteUserRole(userId, roleId)) {
+                return Result.error(deleteError);
+            }
+        }
+        return Result.success();
+    }
+
+    @GetMapping("/user_role/{userId}")
+    public Result selectUserRole(@PathVariable("userId") int userId) {
+        List<Role> list = roleService.selectRoleList(userService.selectUserRole(userId));
+        return list.isEmpty() ? Result.error(selectError) : Result.success(list);
+    }
+
+    @GetMapping("/role/list")
+    public Result selectRole() {
+        List<Role> list = roleService.selectAllRole();
         return list.isEmpty() ? Result.error(selectError) : Result.success(list);
     }
 }

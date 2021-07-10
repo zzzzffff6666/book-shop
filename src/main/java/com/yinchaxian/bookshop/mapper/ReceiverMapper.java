@@ -14,7 +14,7 @@ public interface ReceiverMapper {
 
     @Delete("delete from receiver " +
             "where receiver_id = #{receiverId}")
-    int delete(String receiverId);
+    int delete(int receiverId);
 
     @Update("update receiver " +
             "set name = #{name}, " +
@@ -32,7 +32,7 @@ public interface ReceiverMapper {
             "from receiver " +
             "where receiver_id = #{receiverId}")
     @ResultType(Receiver.class)
-    Receiver select(String receiverId);
+    Receiver select(int receiverId);
 
     @Select("select * " +
             "from receiver " +

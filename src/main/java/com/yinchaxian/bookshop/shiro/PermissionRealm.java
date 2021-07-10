@@ -12,7 +12,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PermissionRealm extends AuthorizingRealm {
@@ -35,7 +34,7 @@ public class PermissionRealm extends AuthorizingRealm {
         List<Integer> roleIdList = userService.selectUserRole(user.getUserId());
         List<String> roles = roleService.selectRoleNameList(roleIdList);
         List<Integer> privilegeIdList = roleService.selectRoleListPrivilege(roleIdList);
-        List<String> privileges = privilegeService.selectPrivilegeListUrl(privilegeIdList);
+        List<String> privileges = privilegeService.selectPrivilegePermissionList(privilegeIdList);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addRoles(roles);

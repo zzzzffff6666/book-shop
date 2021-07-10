@@ -3,21 +3,23 @@ package com.yinchaxian.bookshop.mapper;
 import com.yinchaxian.bookshop.entity.Reply;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 public interface ReplyMapper {
     @Insert("insert into reply " +
-            "values(#{replyId}, #{userId}, #{username}, #{date}, #{content})")
+            "values(#{replyId}, #{commentId}, #{userId}, #{username}, #{date}, #{content})")
     int insert(Reply reply);
 
     @Delete("delete from reply " +
-            "where reply_id = #{replyId} " +
-            "and user_id = #{userId}")
-    int delete(int replyId, int userId);
+            "where reply_id = #{replyId}")
+    int delete(int replyId);
 
     @Update("update reply " +
             "set date = #{date}, " +
             "content = #{content} " +
             "where reply_id = #{replyId} " +
-            "and user_id = #{userId}")
+            "and user_id = #{userId} " +
+            "and comment_id = #{commentId}")
     int update(Reply reply);
 
     @Select("select * " +
@@ -25,4 +27,16 @@ public interface ReplyMapper {
             "where reply_id = #{replyId}")
     @ResultType(Reply.class)
     Reply select(int replyId);
+
+    @Select("select * " +
+            "from reply " +
+            "where comment_id = #{commentId}")
+    @ResultType(Reply.class)
+    List<Reply> selectByComment(int commentId);
+
+    @Select("select * " +
+            "from reply " +
+            "where user_id = #{userId}")
+    @ResultType(Reply.class)
+    List<Reply> selectByUser(int userId);
 }

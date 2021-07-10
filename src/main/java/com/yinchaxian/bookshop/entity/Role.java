@@ -1,13 +1,9 @@
 package com.yinchaxian.bookshop.entity;
 
-import java.sql.Timestamp;
-
 public class Role {
     private int roleId;
     private String name;
     private String description;
-    private Timestamp created;
-    private Timestamp updated;
 
     public int getRoleId() {
         return roleId;
@@ -31,21 +27,5 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public void setCreated(Timestamp created) {
-        this.created = created;
-    }
-
-    public Timestamp getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Timestamp updated) {
-        this.updated = updated;
     }
 }

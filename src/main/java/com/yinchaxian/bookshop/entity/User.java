@@ -1,7 +1,5 @@
 package com.yinchaxian.bookshop.entity;
 
-import java.sql.Timestamp;
-
 public class User {
     private int userId;
     private String username;
@@ -14,8 +12,6 @@ public class User {
     private String address;
     private String identity;
     private String salt;
-    private Timestamp created;
-    private Timestamp updated;
 
     public int getUserId() {
         return userId;
@@ -103,21 +99,5 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    public Timestamp getCreated() {
-        return created;
-    }
-
-    public void setCreated(Timestamp created) {
-        this.created = created;
-    }
-
-    public Timestamp getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Timestamp updated) {
-        this.updated = updated;
     }
 }

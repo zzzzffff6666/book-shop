@@ -86,4 +86,11 @@ public interface BookMapper {
             "limit #{offset}, #{amount}")
     @ResultType(Book.class)
     List<Book> selectByCate(int cateId, int offset, int amount);
+
+    @Select("select * " +
+            "from book " +
+            "where name like '%${name}%' " +
+            "limit #{offset}, #{amount}")
+    @ResultType(Book.class)
+    List<Book> searchByName(String name, int offset, int amount);
 }

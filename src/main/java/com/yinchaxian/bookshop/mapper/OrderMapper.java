@@ -65,5 +65,5 @@ public interface OrderMapper {
             "from order " +
             "where user_id = #{userId}")
     @ResultType(Order.class)
-    List<Order> selectList(int userId);
+    List<Order> selectByUser(int userId);
 }

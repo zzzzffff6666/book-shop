@@ -3,14 +3,13 @@ package com.yinchaxian.bookshop.mapper;
 import com.yinchaxian.bookshop.entity.User;
 import org.apache.ibatis.annotations.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface UserMapper {
     @Insert("insert into user " +
             "values(null, #{username}, #{nickname}, #{password}, " +
             "#{email}, #{phone}, #{age}, #{country}, #{address}, " +
-            "#{identity}, #{salt}, #{created}, #{updated})")
+            "#{identity}, #{salt})")
     @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
     int insert(User user);
 
@@ -26,17 +25,15 @@ public interface UserMapper {
             "age = #{age}, " +
             "country = #{country}, " +
             "address = #{address}, " +
-            "identity = #{identity}, " +
-            "updated = #{updated} " +
+            "identity = #{identity} " +
             "where user_id = #{userId}")
     int updateInfo(User user);
 
     @Update("update user " +
             "set password = #{password}, " +
-            "salt = #{salt}, " +
-            "updated = #{updated} " +
+            "salt = #{salt} " +
             "where user_id = #{userId}")
-    int updatePassword(int userId, String password, String salt, Timestamp updated);
+    int updatePassword(int userId, String password, String salt);
 
     @Select("select user_id, username, nickname, email, phone, age, country, address, identity " +
             "from user " +
@@ -65,5 +62,5 @@ public interface UserMapper {
     @Select("select count(*) " +
             "from user " +
             "where username = #{username}")
-    int selectUsername(String username);
+    int isExist(String username);
 }

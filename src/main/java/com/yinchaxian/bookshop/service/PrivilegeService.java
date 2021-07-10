@@ -32,7 +32,7 @@ public class PrivilegeService {
         return privilegeMapper.selectList(list);
     }
 
-    public List<String> selectPrivilegeListUrl(List<Integer> list) {
+    public List<String> selectPrivilegePermissionList(List<Integer> list) {
         return privilegeMapper.selectUrlList(list);
     }
 }

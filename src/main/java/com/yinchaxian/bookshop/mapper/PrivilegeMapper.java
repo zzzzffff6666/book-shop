@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PrivilegeMapper {
     @Insert("insert into privilege " +
-            "values(null, #{name}, #{url}, #{isParent}, #{parentId}, #{created}, #{updated})")
+            "values(null, #{name}, #{permission})")
     @Options(useGeneratedKeys = true, keyProperty = "privilegeId", keyColumn = "privilege_id")
     int insert(Privilege privilege);
 
@@ -17,10 +17,7 @@ public interface PrivilegeMapper {
 
     @Update("update privilege " +
             "set name = #{name}, " +
-            "url = #{url}, " +
-            "parent_id = #{parentId}, " +
-            "is_parent = #{isParent}, " +
-            "updated = #{updated} " +
+            "permission = #{permission} " +
             "where privilege_id = #{privilegeId}")
     int update(Privilege privilege);
 
@@ -42,7 +39,7 @@ public interface PrivilegeMapper {
     List<Privilege> selectList(@Param("list") List<Integer> list);
 
     @Select("<script> " +
-            "select url " +
+            "select permission " +
             "from privilege " +
             "where privilege_id in " +
             "<foreach item='item' index='index' collection='list' open='(' separator=',' close=')'>" +
