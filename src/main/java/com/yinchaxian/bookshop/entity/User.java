@@ -12,6 +12,7 @@ public class User {
     private String address;
     private String identity;
     private String salt;
+    private int active;
 
     public int getUserId() {
         return userId;
@@ -99,5 +100,13 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

@@ -12,8 +12,13 @@ public interface CommentMapper {
     int insert(Comment comment);
 
     @Delete("delete from comment " +
+            "where comment_id = #{commentId} " +
+            "and user_id = #{userId}")
+    int delete(int commentId, int userId);
+
+    @Delete("delete from comment " +
             "where comment_id = #{commentId}")
-    int delete(int commentId);
+    int deleteByAdmin(int commentId);
 
     @Update("update comment " +
             "set content = #{content}, " +
@@ -43,4 +48,9 @@ public interface CommentMapper {
             "limit #{offset}, #{amount}")
     @ResultType(Comment.class)
     List<Comment> selectByBook(long bookId, int offset, int amount);
+
+    @Select("select user_id " +
+            "from comment " +
+            "where comment_id = #{commentId}")
+    int selectUserId(int commentId);
 }

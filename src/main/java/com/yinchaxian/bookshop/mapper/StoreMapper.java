@@ -43,4 +43,9 @@ public interface StoreMapper {
             "limit #{offset}, #{amount}")
     @ResultType(Store.class)
     List<Store> searchByName(String name, int offset, int amount);
+
+    @Select("select manager_id " +
+            "from store " +
+            "where store_id = #{storeId}")
+    int selectManagerId(int storeId);
 }

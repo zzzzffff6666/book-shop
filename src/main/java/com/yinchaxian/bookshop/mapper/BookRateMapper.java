@@ -27,10 +27,4 @@ public interface BookRateMapper {
             "where user_id = #{userId} " +
             "and book_id = #{bookId}")
     BookRate select(int userId, long bookId);
-
-    @Select("select score " +
-            "from book_rate " +
-            "where user_id = #{userId} " +
-            "and book_id = #{bookId}")
-    int selectScore(int userId, long bookId);
 }

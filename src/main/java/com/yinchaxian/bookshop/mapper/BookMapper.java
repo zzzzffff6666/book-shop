@@ -75,10 +75,16 @@ public interface BookMapper {
 
     @Select("select * " +
             "from book " +
-            "where store_id = #{storeId} " +
             "limit #{offset}, #{amount}")
     @ResultType(Book.class)
-    List<Book> selectByStore(int storeId, int offset, int amount);
+    List<Book> selectAll(int offset, int amount);
+
+    @Select("select * " +
+            "from book " +
+            "order by deal_mount desc " +
+            "limit #{offset}, #{amount}")
+    @ResultType(Book.class)
+    List<Book> selectAllByDealMount(int offset, int amount);
 
     @Select("select * " +
             "from book " +
@@ -89,8 +95,20 @@ public interface BookMapper {
 
     @Select("select * " +
             "from book " +
+            "where store_id = #{storeId} " +
+            "limit #{offset}, #{amount}")
+    @ResultType(Book.class)
+    List<Book> selectByStore(int storeId, int offset, int amount);
+
+    @Select("select * " +
+            "from book " +
             "where name like '%${name}%' " +
             "limit #{offset}, #{amount}")
     @ResultType(Book.class)
     List<Book> searchByName(String name, int offset, int amount);
+
+    @Select("select store_id " +
+            "from book " +
+            "where book_id = #{bookId}")
+    int selectStoreId(long bookId);
 }

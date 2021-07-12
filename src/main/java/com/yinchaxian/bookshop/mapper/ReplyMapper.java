@@ -11,15 +11,19 @@ public interface ReplyMapper {
     int insert(Reply reply);
 
     @Delete("delete from reply " +
+            "where reply_id = #{replyId} " +
+            "and user_id = #{userId}")
+    int delete(int replyId, int userId);
+
+    @Delete("delete from reply " +
             "where reply_id = #{replyId}")
-    int delete(int replyId);
+    int deleteByAdmin(int replyId);
 
     @Update("update reply " +
             "set date = #{date}, " +
             "content = #{content} " +
             "where reply_id = #{replyId} " +
-            "and user_id = #{userId} " +
-            "and comment_id = #{commentId}")
+            "and user_id = #{userId}")
     int update(Reply reply);
 
     @Select("select * " +
@@ -30,13 +34,22 @@ public interface ReplyMapper {
 
     @Select("select * " +
             "from reply " +
-            "where comment_id = #{commentId}")
+            "where user_id = #{userId} " +
+            "order by date desc " +
+            "limit #{offset}, #{amount}")
     @ResultType(Reply.class)
-    List<Reply> selectByComment(int commentId);
+    List<Reply> selectByUser(int userId, int offset, int amount);
 
     @Select("select * " +
             "from reply " +
-            "where user_id = #{userId}")
+            "where comment_id = #{commentId} " +
+            "order by date desc " +
+            "limit #{offset}, #{amount}")
     @ResultType(Reply.class)
-    List<Reply> selectByUser(int userId);
+    List<Reply> selectByComment(int commentId, int offset, int amount);
+
+    @Select("select user_id " +
+            "from reply " +
+            "where reply_id = #{replyId}")
+    int selectUserId(int replyId);
 }

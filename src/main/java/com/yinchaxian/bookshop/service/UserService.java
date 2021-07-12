@@ -31,6 +31,10 @@ public class UserService {
         return userMapper.updatePassword(userId, password, salt) == 1;
     }
 
+    public boolean updateUserActive(int userId, int active) {
+        return userMapper.updateActive(userId, active) == 1;
+    }
+
     public boolean isExist(String username) {
         return userMapper.isExist(username) >= 1;
     }
@@ -40,11 +44,11 @@ public class UserService {
     }
 
     public User selectUserForLogin(String username) {
-        return userMapper.selectInfo(username);
+        return userMapper.selectInfoByUsername(username);
     }
 
     public User selectUserForPassword(int userId) {
-        return userMapper.selectInfo(userId);
+        return userMapper.selectInfoByUserId(userId);
     }
 
     public List<User> selectAllUser(int offset, int amount) {

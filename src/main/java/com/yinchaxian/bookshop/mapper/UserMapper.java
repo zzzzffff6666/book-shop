@@ -9,7 +9,7 @@ public interface UserMapper {
     @Insert("insert into user " +
             "values(null, #{username}, #{nickname}, #{password}, " +
             "#{email}, #{phone}, #{age}, #{country}, #{address}, " +
-            "#{identity}, #{salt})")
+            "#{identity}, #{salt}, 1)")
     @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
     int insert(User user);
 
@@ -35,6 +35,11 @@ public interface UserMapper {
             "where user_id = #{userId}")
     int updatePassword(int userId, String password, String salt);
 
+    @Update("update user " +
+            "set active = #{active} " +
+            "where user_id = #{userId}")
+    int updateActive(int userId, int active);
+
     @Select("select user_id, username, nickname, email, phone, age, country, address, identity " +
             "from user " +
             "where user_id = #{userId}")
@@ -45,15 +50,15 @@ public interface UserMapper {
             "from user " +
             "where username = #{username}")
     @ResultType(User.class)
-    User selectInfo(String username);
+    User selectInfoByUsername(String username);
 
     @Select("select user_id, username, password, salt " +
             "from user " +
             "where user_id = #{userId}")
     @ResultType(User.class)
-    User selectInfo(int userId);
+    User selectInfoByUserId(int userId);
 
-    @Select("select user_id, username, nickname, email, phone, age, country, address, identity " +
+    @Select("select user_id, username, nickname, email, phone, age, country, address, identity, active " +
             "from user " +
             "limit #{offset}, #{amount}")
     @ResultType(User.class)

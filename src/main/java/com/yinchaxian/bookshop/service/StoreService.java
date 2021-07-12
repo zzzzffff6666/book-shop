@@ -35,4 +35,8 @@ public class StoreService {
     public List<Store> searchStoreByName(String name, int offset, int amount) {
         return storeMapper.searchByName(name, offset, amount);
     }
+
+    public int selectStoreManagerId(int storeId) {
+        return storeMapper.selectManagerId(storeId);
+    }
 }

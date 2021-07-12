@@ -36,7 +36,13 @@ public interface ReceiverMapper {
 
     @Select("select * " +
             "from receiver " +
+            "order by updated desc " +
             "where user_id = #{userId}")
     @ResultType(Receiver.class)
     List<Receiver> selectByUser(int userId);
+
+    @Select("select user_id " +
+            "from receiver " +
+            "where receiver_id = #{receiverId}")
+    int selectUserId(int receiverId);
 }

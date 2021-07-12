@@ -1,19 +1,18 @@
 package com.yinchaxian.bookshop.entity;
 
-import java.sql.Timestamp;
-
 public class OrderDetail {
     private String orderId;
     private long bookId;
     private String bookName;
     private String imageUrl;
-    private int storeId;
     private int mount;
     private float unitPrice;
     private float totalPrice;
+    private String shippingName;
+    private String shippingCode;
     private String postStatus;
-    private Timestamp deliveryTime;
     private String receiveStatus;
+    private String feedback;
     private int score;
 
     public String getOrderId() {
@@ -48,14 +47,6 @@ public class OrderDetail {
         this.imageUrl = imageUrl;
     }
 
-    public int getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
-    }
-
     public int getMount() {
         return mount;
     }
@@ -80,6 +71,22 @@ public class OrderDetail {
         this.totalPrice = totalPrice;
     }
 
+    public String getShippingName() {
+        return shippingName;
+    }
+
+    public void setShippingName(String shippingName) {
+        this.shippingName = shippingName;
+    }
+
+    public String getShippingCode() {
+        return shippingCode;
+    }
+
+    public void setShippingCode(String shippingCode) {
+        this.shippingCode = shippingCode;
+    }
+
     public String getPostStatus() {
         return postStatus;
     }
@@ -88,20 +95,20 @@ public class OrderDetail {
         this.postStatus = postStatus;
     }
 
-    public Timestamp getDeliveryTime() {
-        return deliveryTime;
-    }
-
-    public void setDeliveryTime(Timestamp deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
-
     public String getReceiveStatus() {
         return receiveStatus;
     }
 
     public void setReceiveStatus(String receiveStatus) {
         this.receiveStatus = receiveStatus;
+    }
+
+    public String getBuyerFeedback() {
+        return feedback;
+    }
+
+    public void setBuyerFeedback(String buyerFeedback) {
+        this.feedback = buyerFeedback;
     }
 
     public int getScore() {

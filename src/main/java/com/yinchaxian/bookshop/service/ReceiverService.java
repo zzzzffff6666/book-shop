@@ -31,4 +31,8 @@ public class ReceiverService {
     public List<Receiver> selectReceiverByUser(int userId) {
         return receiverMapper.selectByUser(userId);
     }
+
+    public int selectReceiverUserId(int receiverId) {
+        return receiverMapper.selectUserId(receiverId);
+    }
 }

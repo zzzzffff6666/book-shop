@@ -56,6 +56,14 @@ public class BookService {
         return bookMapper.select(bookId);
     }
 
+    public List<Book> selectAllBook(int offset, int amount) {
+        return bookMapper.selectAll(offset, amount);
+    }
+
+    public List<Book> selectAllBookByDealMount(int offset, int amount) {
+        return bookMapper.selectAllByDealMount(offset, amount);
+    }
+
     public List<Book> selectBookByCate(int cateId, int offset, int amount) {
         return bookMapper.selectByCate(cateId, offset, amount);
     }
@@ -66,6 +74,10 @@ public class BookService {
 
     public List<Book> searchBookByName(String name, int offset, int amount) {
         return bookMapper.searchByName(name, offset, amount);
+    }
+
+    public int selectBookStoreId(long bookId) {
+        return bookMapper.selectStoreId(bookId);
     }
 
     public boolean insertBookDesc(BookDesc bookDesc) {
@@ -98,9 +110,5 @@ public class BookService {
 
     public BookRate selectBookRate(int userId, long bookId) {
         return bookRateMapper.select(userId, bookId);
-    }
-
-    public int selectBookRateScore(int userId, long bookId) {
-        return bookRateMapper.selectScore(userId, bookId);
     }
 }

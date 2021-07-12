@@ -20,8 +20,12 @@ public class CommentService {
         return commentMapper.insert(comment) == 1;
     }
 
-    public boolean deleteComment(int commentId) {
-        return commentMapper.delete(commentId) == 1;
+    public boolean deleteComment(int commentId, int userId) {
+        return commentMapper.delete(commentId, userId) == 1;
+    }
+
+    public boolean deleteCommentByAdmin(int commentId) {
+        return commentMapper.deleteByAdmin(commentId) == 1;
     }
 
     public boolean updateComment(Comment comment) {
@@ -40,12 +44,20 @@ public class CommentService {
         return commentMapper.selectByBook(bookId, offset, amount);
     }
 
+    public int selectCommentUserId(int commentId) {
+        return commentMapper.selectUserId(commentId);
+    }
+
     public boolean insertReply(Reply reply) {
         return replyMapper.insert(reply) == 1;
     }
 
-    public boolean deleteReply(int replyId) {
-        return replyMapper.delete(replyId) == 1;
+    public boolean deleteReply(int replyId, int userId) {
+        return replyMapper.delete(replyId, userId) == 1;
+    }
+
+    public boolean deleteReplyByAdmin(int replyId) {
+        return replyMapper.deleteByAdmin(replyId) == 1;
     }
 
     public boolean updateReply(Reply reply) {
@@ -56,11 +68,15 @@ public class CommentService {
         return replyMapper.select(replyId);
     }
 
-    public List<Reply> selectReplyByComment(int commentId) {
-        return replyMapper.selectByComment(commentId);
+    public List<Reply> selectReplyByUser(int userId, int offset, int amount) {
+        return replyMapper.selectByUser(userId, offset, amount);
     }
 
-    public List<Reply> selectReplyByUser(int userId) {
-        return replyMapper.selectByUser(userId);
+    public List<Reply> selectReplyByComment(int commentId, int offset, int amount) {
+        return replyMapper.selectByComment(commentId, offset, amount);
+    }
+
+    public int selectReplyUserId(int replyId) {
+        return replyMapper.selectUserId(replyId);
     }
 }

@@ -6,19 +6,17 @@ public class Order {
     private String orderId;
     private int userId;
     private int receiverId;
+    private int storeId;
+    private long bookId;
+    private String bookName;
+    private int orderMount;
     private float price;
     private float postFee;
     private int paymentType;
-    private int orderMount;
-    private String shippingName;
-    private String shippingCode;
-    private String buyerFeedback;
-    private int buyerRate;
     private int status;
     private Timestamp created;
     private Timestamp paid;
     private Timestamp finished;
-    private Timestamp closed;
     private Timestamp updated;
 
     public String getOrderId() {
@@ -45,6 +43,38 @@ public class Order {
         this.receiverId = receiverId;
     }
 
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
+    }
+
+    public long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(long bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public int getOrderMount() {
+        return orderMount;
+    }
+
+    public void setOrderMount(int orderMount) {
+        this.orderMount = orderMount;
+    }
+
     public float getPrice() {
         return price;
     }
@@ -67,46 +97,6 @@ public class Order {
 
     public void setPaymentType(int paymentType) {
         this.paymentType = paymentType;
-    }
-
-    public int getOrderMount() {
-        return orderMount;
-    }
-
-    public void setOrderMount(int orderMount) {
-        this.orderMount = orderMount;
-    }
-
-    public String getShippingName() {
-        return shippingName;
-    }
-
-    public void setShippingName(String shippingName) {
-        this.shippingName = shippingName;
-    }
-
-    public String getShippingCode() {
-        return shippingCode;
-    }
-
-    public void setShippingCode(String shippingCode) {
-        this.shippingCode = shippingCode;
-    }
-
-    public String getBuyerFeedback() {
-        return buyerFeedback;
-    }
-
-    public void setBuyerFeedback(String buyerFeedback) {
-        this.buyerFeedback = buyerFeedback;
-    }
-
-    public int getBuyerRate() {
-        return buyerRate;
-    }
-
-    public void setBuyerRate(int buyerRate) {
-        this.buyerRate = buyerRate;
     }
 
     public int getStatus() {
@@ -139,14 +129,6 @@ public class Order {
 
     public void setFinished(Timestamp finished) {
         this.finished = finished;
-    }
-
-    public Timestamp getClosed() {
-        return closed;
-    }
-
-    public void setClosed(Timestamp closed) {
-        this.closed = closed;
     }
 
     public Timestamp getUpdated() {

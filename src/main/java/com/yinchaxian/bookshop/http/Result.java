@@ -13,6 +13,7 @@ public class Result extends HashMap<String, Object> {
     public static Result success() {
         return success(null);
     }
+
     public static Result success(Object obj) {
         Result result = new Result();
         result.put(STATUS_TAG, SUCCESS);
