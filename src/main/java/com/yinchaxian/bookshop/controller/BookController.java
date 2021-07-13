@@ -3,7 +3,6 @@ package com.yinchaxian.bookshop.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yinchaxian.bookshop.entity.Book;
-import com.yinchaxian.bookshop.entity.BookDesc;
 import com.yinchaxian.bookshop.entity.BookRate;
 import com.yinchaxian.bookshop.entity.Category;
 import com.yinchaxian.bookshop.http.ErrorMessage;
@@ -19,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
-import java.util.Map;
 
 /**
  * @author: zhang
@@ -131,52 +128,25 @@ public class BookController {
 
     /**
      * 在自己的店铺里添加一本书
-     * @param params 书的信息（还包括BookDesc里面的 desc 属性）
+     * @param book 书的信息
      * @param session session信息
      * @return 是否成功
      */
     @PostMapping("/book")
     @RequiresPermissions(value = {"book:insert", "book:*"}, logical = Logical.OR)
-    public Result insertBook(@RequestBody Map<String, String> params, HttpSession session) {
+    public Result insertBook(@RequestBody Book book, HttpSession session) {
         int id = (int) session.getAttribute("userId");
-        int storeId = Integer.parseInt(params.get("storeId"));
+        int storeId = book.getStoreId();
         int userId = storeService.selectStoreManagerId(storeId);
         if (id != userId) {
             return Result.error(ErrorMessage.authError);
         }
-        Book book = new Book();
-        book.setCateId(Integer.parseInt(params.get("cateId")));
-        book.setCname(params.get("cname"));
-        book.setStoreId(Integer.parseInt(params.get("storeId")));
-        book.setName(params.get("name"));
-        book.setImageUrl(params.get("imageUrl"));
-        book.setOutline(params.get("outline"));
-        book.setAuthor(params.get("author"));
-        book.setPress(params.get("press"));
-        book.setVersion(params.get("version"));
-        book.setPublishDate(params.get("publishDate"));
-        book.setIsbn(params.get("isbn"));
-        book.setPages(Integer.parseInt(params.get("pages")));
-        book.setCatalog(params.get("catalog"));
-        book.setPackStyle(params.get("packStyle"));
-        book.setStoreMount(Integer.parseInt(params.get("storeMount")));
-        book.setPrice(Float.parseFloat(params.get("price")));
-        book.setMarketPrice(Float.parseFloat(params.get("marketPrice")));
-        book.setMemberPrice(Float.parseFloat(params.get("memberPrice")));
-        book.setDiscount(Float.parseFloat(params.get("discount")));
         book.setDealMount(0);
         book.setLookMount(0);
+        book.setScoreNumber(0);
+        book.setScore(0);
         boolean suc = bookService.insertBook(book);
-        if (suc) {
-            BookDesc bookDesc = new BookDesc();
-            bookDesc.setBookId(book.getBookId());
-            bookDesc.setDesc(params.get("desc"));
-            Timestamp current = new Timestamp(System.currentTimeMillis());
-            bookDesc.setCreated(current);
-            bookDesc.setUpdated(current);
-            return Result.success(bookService.insertBookDesc(bookDesc));
-        }
-        return Result.error(ErrorMessage.insertError);
+        return suc ? Result.success() : Result.error(ErrorMessage.insertError);
     }
 
     /**
@@ -194,12 +164,8 @@ public class BookController {
         if (id != userId) {
             return Result.error(ErrorMessage.authError);
         }
-
         boolean suc = bookService.deleteBook(bookId);
-        if (suc) {
-            return Result.success(bookService.deleteBookDesc(bookId));
-        }
-        return Result.error(ErrorMessage.deleteError);
+        return suc ? Result.success() : Result.error(ErrorMessage.deleteError);
     }
 
     /**
@@ -333,50 +299,6 @@ public class BookController {
     }
 
     //
-    // BookDetail部分
-    //
-
-    /**
-     * 更新图书的详细信息
-     * @param bookDesc 图书详细信息
-     * @param bookId 图书ID
-     * @param session session信息
-     * @return 是否成功
-     */
-    @PutMapping("/book/desc/{bookId}")
-    @RequiresPermissions(value = {"book_desc:update", "book_desc:*"}, logical = Logical.OR)
-    public Result updateBookDesc(@RequestBody BookDesc bookDesc,
-                                 @PathVariable("bookId") long bookId, HttpSession session) {
-        int id = (int) session.getAttribute("userId");
-        int storeId = bookService.selectBookStoreId(bookId);
-        int userId = storeService.selectStoreManagerId(storeId);
-        if (id != userId) {
-            return Result.error(ErrorMessage.authError);
-        }
-        bookDesc.setBookId(bookId);
-        Timestamp current = new Timestamp(System.currentTimeMillis());
-        bookDesc.setCreated(current);
-        bookDesc.setUpdated(current);
-        boolean suc = bookService.updateBookDesc(bookDesc);
-        return suc ? Result.success() : Result.error(ErrorMessage.updateError);
-    }
-
-    /**
-     * 查询图书详细信息
-     * @param bookId 图书ID
-     * @param session session信息
-     * @return 查询结果
-     */
-    @GetMapping("/book/desc/{bookId}")
-    @RequiresAuthentication
-    public Result selectBookDesc(@PathVariable("bookId") long bookId, HttpSession session) {
-        int id = (int) session.getAttribute("userId");
-        bookService.updateBookLook(bookId, 1);
-        BookDesc bookDesc = bookService.selectBookDesc(bookId);
-        return Result.success(bookDesc);
-    }
-
-    //
     // BookRate部分
     //
 
@@ -397,7 +319,11 @@ public class BookController {
         }
         bookRate.setUserId(id);
         boolean suc = bookService.insertBookRate(bookRate);
-        return suc ? Result.success() : Result.error(ErrorMessage.insertError);
+        if (suc) {
+            bookService.updateBookScore(bookRate.getBookId(), bookRate.getScore(), 0);
+            return Result.success();
+        }
+        return Result.error(ErrorMessage.insertError);
     }
 
     /**
@@ -410,8 +336,13 @@ public class BookController {
     @RequiresPermissions(value = {"book_rate:delete", "book_rate:*"}, logical = Logical.OR)
     public Result deleteBookRate(@PathVariable("bookId") long bookId, HttpSession session) {
         int id = (int) session.getAttribute("userId");
+        int score = bookService.selectBookRateScore(id, bookId);
         boolean suc = bookService.deleteBookRate(id, bookId);
-        return suc ? Result.success() : Result.error(ErrorMessage.deleteError);
+        if (suc) {
+            bookService.updateBookScore(bookId, score, 1);
+            return Result.success();
+        }
+        return Result.error(ErrorMessage.deleteError);
     }
 
     /**
@@ -427,8 +358,13 @@ public class BookController {
                                  HttpSession session) {
         int id = (int) session.getAttribute("userId");
         bookRate.setUserId(id);
+        int score = bookService.selectBookRateScore(id, bookId);
         boolean suc = bookService.updateBookRate(bookRate);
-        return suc ? Result.success() : Result.error(ErrorMessage.updateError);
+        if (suc) {
+            bookService.updateBookScore(bookId, score - bookRate.getScore(), 2);
+            return Result.success();
+        }
+        return Result.error(ErrorMessage.updateError);
     }
 
     /**
@@ -441,7 +377,7 @@ public class BookController {
     @RequiresAuthentication
     public Result selectBookRate(@PathVariable("bookId") long bookId, HttpSession session) {
         int id = (int) session.getAttribute("userId");
-        BookRate bookRate = bookService.selectBookRate(id, bookId);
-        return Result.success(bookRate);
+        int score = bookService.selectBookRateScore(id, bookId);
+        return Result.success(score);
     }
 }

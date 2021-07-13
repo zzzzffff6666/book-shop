@@ -1,10 +1,7 @@
 package com.yinchaxian.bookshop.mapper;
 
 import com.yinchaxian.bookshop.entity.BookRate;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 public interface BookRateMapper {
     @Insert("insert into book_rate " +
@@ -22,9 +19,9 @@ public interface BookRateMapper {
             "and book_id = #{bookId}")
     int update(BookRate bookRate);
 
-    @Select("select * " +
+    @Select("select score " +
             "from book_rate " +
             "where user_id = #{userId} " +
             "and book_id = #{bookId}")
-    BookRate select(int userId, long bookId);
+    int selectScore(int userId, long bookId);
 }

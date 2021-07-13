@@ -1,9 +1,7 @@
 package com.yinchaxian.bookshop.service;
 
 import com.yinchaxian.bookshop.entity.Book;
-import com.yinchaxian.bookshop.entity.BookDesc;
 import com.yinchaxian.bookshop.entity.BookRate;
-import com.yinchaxian.bookshop.mapper.BookDescMapper;
 import com.yinchaxian.bookshop.mapper.BookMapper;
 import com.yinchaxian.bookshop.mapper.BookRateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,6 @@ import java.util.List;
 public class BookService {
     @Autowired
     private BookMapper bookMapper;
-    @Autowired
-    private BookDescMapper bookDescMapper;
     @Autowired
     private BookRateMapper bookRateMapper;
 
@@ -52,6 +48,16 @@ public class BookService {
         return bookMapper.updateLook(bookId, addition) == 1;
     }
 
+    public boolean updateBookScore(long bookId, int score, int type) {
+        if (type == 0) {
+            return bookMapper.updateScoreAdd(bookId, score) == 1;
+        } else if (type == 2) {
+            return bookMapper.updateScoreDelete(bookId, score) == 1;
+        } else {
+            return bookMapper.updateScoreUpdate(bookId, score) == 1;
+        }
+    }
+
     public Book selectBook(long bookId) {
         return bookMapper.select(bookId);
     }
@@ -80,22 +86,6 @@ public class BookService {
         return bookMapper.selectStoreId(bookId);
     }
 
-    public boolean insertBookDesc(BookDesc bookDesc) {
-        return bookDescMapper.insert(bookDesc) == 1;
-    }
-
-    public boolean deleteBookDesc(long bookId) {
-        return bookDescMapper.delete(bookId) == 1;
-    }
-
-    public boolean updateBookDesc(BookDesc bookDesc) {
-        return bookDescMapper.update(bookDesc) == 1;
-    }
-
-    public BookDesc selectBookDesc(long bookId) {
-        return bookDescMapper.select(bookId);
-    }
-
     public boolean insertBookRate(BookRate bookRate) {
         return bookRateMapper.insert(bookRate) == 1;
     }
@@ -108,7 +98,7 @@ public class BookService {
         return bookRateMapper.update(bookRate) == 1;
     }
 
-    public BookRate selectBookRate(int userId, long bookId) {
-        return bookRateMapper.select(userId, bookId);
+    public int selectBookRateScore(int userId, long bookId) {
+        return bookRateMapper.selectScore(userId, bookId);
     }
 }

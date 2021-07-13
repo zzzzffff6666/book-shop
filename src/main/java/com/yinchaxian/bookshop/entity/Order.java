@@ -9,6 +9,7 @@ public class Order {
     private int storeId;
     private long bookId;
     private String bookName;
+    private String imageUrl;
     private int orderMount;
     private float price;
     private float postFee;
@@ -65,6 +66,14 @@ public class Order {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getOrderMount() {

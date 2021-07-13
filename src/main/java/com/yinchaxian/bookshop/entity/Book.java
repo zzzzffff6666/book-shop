@@ -23,6 +23,8 @@ public class Book {
     private float discount;
     private int dealMount;
     private int lookMount;
+    private int scoreNumber;
+    private float score;
 
     public long getBookId() {
         return bookId;
@@ -198,5 +200,21 @@ public class Book {
 
     public void setLookMount(int lookMount) {
         this.lookMount = lookMount;
+    }
+
+    public int getScoreNumber() {
+        return scoreNumber;
+    }
+
+    public void setScoreNumber(int scoreNumber) {
+        this.scoreNumber = scoreNumber;
+    }
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
     }
 }

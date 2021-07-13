@@ -9,7 +9,7 @@ import java.util.List;
 public interface OrderMapper {
     @Insert("insert into `order` " +
             "values(#{orderId}, #{userId}, #{receiverId}, #{storeId}, #{bookId}, " +
-            "#{bookName}, #{orderMount}, #{price}, #{postFee}, #{paymentType}, " +
+            "#{bookName}, #{imageUrl}, #{orderMount}, #{price}, #{postFee}, #{paymentType}, " +
             "0, #{created}, null, null, #{updated})")
     int insert(Order order);
 

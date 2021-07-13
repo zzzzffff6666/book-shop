@@ -9,8 +9,8 @@ public interface BookMapper {
     @Insert("insert into book " +
             "values(null, #{cateId}, #{cname}, #{storeId}, #{name}, #{imageUrl}, " +
             "#{outline}, #{author}, #{press}, #{version}, #{publishDate}, #{isbn}, " +
-            "#{pages}, #{catalog}, #{packStyle}, #{storeMount}, #{price}, " +
-            "#{marketPrice}, #{memberPrice}, #{discount}, #{dealMount}, #{lookMount})")
+            "#{pages}, #{catalog}, #{packStyle}, #{storeMount}, #{price}, #{marketPrice}, " +
+            "#{memberPrice}, #{discount}, #{dealMount}, #{lookMount}, #{scoreNumber}, #{score})")
     @Options(useGeneratedKeys = true, keyProperty = "bookId", keyColumn = "book_id")
     int insert(Book book);
 
@@ -66,6 +66,23 @@ public interface BookMapper {
             "set look_mount = look_mount + #{addition} " +
             "where book_id = #{bookId}")
     int updateLook(long bookId, int addition);
+
+    @Update("update book " +
+            "set score = (score * score_number + #{score}) / (score_number + 1), " +
+            "score_number = score_number + 1 " +
+            "where book_id = #{bookId}")
+    int updateScoreAdd(long bookId, int score);
+
+    @Update("update book " +
+            "set score = (score * score_number - #{score}) / (score_number - 1), " +
+            "score_number = score_number - 1 " +
+            "where book_id = #{bookId}")
+    int updateScoreDelete(long bookId, int score);
+
+    @Update("update book " +
+            "set score = (score * score_number + #{score}) / (score_number) " +
+            "where book_id = #{bookId}")
+    int updateScoreUpdate(long bookId, int score);
 
     @Select("select * " +
             "from book " +
