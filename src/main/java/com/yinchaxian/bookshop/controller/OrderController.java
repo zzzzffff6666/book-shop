@@ -318,7 +318,6 @@ public class OrderController {
     public Result selectAllOrderByUser(@RequestBody(required = false) Integer status,
                                        @PathVariable(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) page = 1;
-
         int id = (int) session.getAttribute("userId");
         if (status == null) {
             PageHelper.startPage(page, orderPageAmount);
