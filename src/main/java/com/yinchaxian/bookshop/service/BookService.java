@@ -7,6 +7,7 @@ import com.yinchaxian.bookshop.mapper.BookRateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -80,6 +81,14 @@ public class BookService {
 
     public List<Book> searchBookByName(String name) {
         return bookMapper.searchByName(name);
+    }
+
+    public List<Book> getTop20Book() {
+        return new ArrayList<>();
+    }
+
+    public List<Book> getRecommend20Book() {
+        return new ArrayList<>();
     }
 
     public int selectBookStoreId(long bookId) {

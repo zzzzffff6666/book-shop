@@ -18,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: zhang
@@ -295,6 +298,30 @@ public class BookController {
         if (page == null) page = 1;
         PageHelper.startPage(page, bookPageAmount);
         PageInfo<Book> list = new PageInfo<>(bookService.searchBookByName(name));
+        return Result.success(list);
+    }
+
+    /**
+     * 推荐当前热度前二十的书籍
+     * @return 推荐内容
+     */
+    @GetMapping("/book/top20")
+    @RequiresAuthentication
+    public Result getTop20Book() {
+        Map<String, Object> list = new HashMap<>();
+        list.put("list", bookService.getTop20Book());
+        return Result.success(list);
+    }
+
+    /**
+     * 推荐你可能喜欢的书籍
+     * @return 推荐内容
+     */
+    @GetMapping("/book/top20")
+    @RequiresAuthentication
+    public Result getRecommend20Book() {
+        Map<String, Object> list = new HashMap<>();
+        list.put("list", bookService.getRecommend20Book());
         return Result.success(list);
     }
 
