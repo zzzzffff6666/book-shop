@@ -1,8 +1,11 @@
 package com.yinchaxian.bookshop.shiro;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,15 +32,31 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(securityManager());
+
         Map<String, String> map = new LinkedHashMap<>();
         map.put("/login", "anon");
         map.put("/register", "anon");
         map.put("/**", "authc");
-
         bean.setFilterChainDefinitionMap(map);
+
         bean.setLoginUrl("/login");
         bean.setUnauthorizedUrl("/login");
         return bean;
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager());
+        return advisor;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
+        DefaultAdvisorAutoProxyCreator app = new DefaultAdvisorAutoProxyCreator();
+        app.setProxyTargetClass(true);
+        return app;
     }
 
     @Bean

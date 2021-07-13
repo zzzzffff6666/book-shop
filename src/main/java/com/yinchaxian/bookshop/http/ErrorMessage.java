@@ -3,6 +3,7 @@ package com.yinchaxian.bookshop.http;
 public interface ErrorMessage {
     String loginError = "用户名户密码错误";
     String registerError = "注册失败";
+    String accountError = "账户已被禁用";
     String nameError = "用户名已存在";
     String passwordError = "密码错误";
     String insertError = "添加失败";
@@ -13,4 +14,5 @@ public interface ErrorMessage {
     String parameterError = "参数错误";
     String commentError = "未购买，不能评论";
     String rateError = "未购买，不能评分";
+    String unknownError = "未知错误";
 }

@@ -4,6 +4,8 @@ import com.yinchaxian.bookshop.entity.ClickLog;
 import com.yinchaxian.bookshop.http.ErrorMessage;
 import com.yinchaxian.bookshop.http.Result;
 import com.yinchaxian.bookshop.service.LogService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,7 @@ public class LogController {
      * @return 是否成功
      */
     @DeleteMapping(value = {"/click_log/{start}", "/click_log/{start}/{end}"})
+    @RequiresPermissions(value = {"click_log:delete", "click_log:*"}, logical = Logical.OR)
     public Result deleteLog(@PathVariable("start") String start,
                             @PathVariable(value = "end", required = false) String end) {
         Timestamp startTime = Timestamp.valueOf(start);
@@ -51,6 +54,7 @@ public class LogController {
      * @return 查询结果
      */
     @GetMapping(value = {"/click_log/{start}", "/click_log/{start}/{end}"})
+    @RequiresPermissions(value = {"click_log:select", "click_log:*"}, logical = Logical.OR)
     public Result selectLog(@PathVariable("start") String start,
                             @PathVariable(value = "end", required = false) String end) {
         Timestamp startTime = Timestamp.valueOf(start);

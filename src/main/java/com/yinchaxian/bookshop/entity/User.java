@@ -8,7 +8,7 @@ public class User {
     private String email;
     private String phone;
     private int age;
-    private String county;
+    private String country;
     private String address;
     private String identity;
     private String salt;
@@ -70,12 +70,12 @@ public class User {
         this.age = age;
     }
 
-    public String getCounty() {
-        return county;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCounty(String county) {
-        this.county = county;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getAddress() {
