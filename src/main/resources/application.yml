@@ -20,3 +20,9 @@ server:
 #    path: classpath:/log
 #    name: shop.log
 
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+

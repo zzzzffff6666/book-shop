@@ -1,5 +1,7 @@
 package com.yinchaxian.bookshop.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yinchaxian.bookshop.entity.Book;
 import com.yinchaxian.bookshop.entity.Order;
 import com.yinchaxian.bookshop.entity.OrderDetail;
@@ -10,12 +12,10 @@ import com.yinchaxian.bookshop.service.OrderService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -318,14 +318,17 @@ public class OrderController {
     public Result selectAllOrderByUser(@RequestBody(required = false) Integer status,
                                        @PathVariable(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) page = 1;
-        List<Order> list;
+
         int id = (int) session.getAttribute("userId");
         if (status == null) {
-            list = orderService.selectOrderByUser(id, (page - 1) * orderPageAmount, orderPageAmount);
+            PageHelper.startPage(page, orderPageAmount);
+            PageInfo<Order> list = new PageInfo<>(orderService.selectOrderByUser(id));
+            return Result.success(list);
         } else {
-            list = orderService.selectOrderByUserAndStatus(id, status, (page - 1) * orderPageAmount, orderPageAmount);
+            PageHelper.startPage(page, orderPageAmount);
+            PageInfo<Order> list = new PageInfo<>(orderService.selectOrderByUserAndStatus(id, status));
+            return Result.success(list);
         }
-        return Result.success(list);
     }
 
     /**
@@ -345,14 +348,16 @@ public class OrderController {
     public Result selectAllOrderByStore(@RequestBody(required = false) Integer status,
                                         @PathVariable(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) page = 1;
-        List<Order> list;
         int id = (int) session.getAttribute("userId");
         if (status == null) {
-            list = orderService.selectOrderByStore(id, (page - 1) * orderPageAmount, orderPageAmount);
+            PageHelper.startPage(page, orderPageAmount);
+            PageInfo<Order> list = new PageInfo<>(orderService.selectOrderByStore(id));
+            return Result.success(list);
         } else {
-            list = orderService.selectOrderByStoreAndStatus(id, status, (page - 1) * orderPageAmount, orderPageAmount);
+            PageHelper.startPage(page, orderPageAmount);
+            PageInfo<Order> list = new PageInfo<>(orderService.selectOrderByStoreAndStatus(id, status));
+            return Result.success(list);
         }
-        return Result.success(list);
     }
 
     /**
@@ -370,7 +375,6 @@ public class OrderController {
         if (id != userId || id != storeId) {
             return Result.error(ErrorMessage.authError);
         }
-
         OrderDetail orderDetail = orderService.selectOrderDetail(orderId);
         return Result.success(orderDetail);
     }

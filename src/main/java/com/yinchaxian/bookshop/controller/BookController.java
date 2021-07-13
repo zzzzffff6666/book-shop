@@ -1,5 +1,7 @@
 package com.yinchaxian.bookshop.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yinchaxian.bookshop.entity.Book;
 import com.yinchaxian.bookshop.entity.BookDesc;
 import com.yinchaxian.bookshop.entity.BookRate;
@@ -14,12 +16,10 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -104,7 +104,8 @@ public class BookController {
     @RequiresAuthentication
     public Result selectAllCategory(@PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Category> list = categoryService.selectAllCategory((page - 1) * catePageAmount, catePageAmount);
+        PageHelper.startPage(page, catePageAmount);
+        PageInfo<Category> list = new PageInfo<>(categoryService.selectAllCategory());
         return Result.success(list);
     }
 
@@ -119,7 +120,8 @@ public class BookController {
     public Result searchCategoryByName(@PathVariable("name") String name,
                                        @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Category> list = categoryService.searchCategoryByName(name, (page - 1) * catePageAmount, catePageAmount);
+        PageHelper.startPage(page, catePageAmount);
+        PageInfo<Category> list = new PageInfo<>(categoryService.searchCategoryByName(name));
         return Result.success(list);
     }
 
@@ -263,7 +265,8 @@ public class BookController {
     @RequiresAuthentication
     public Result selectAllBook(@PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Book> list = bookService.selectAllBook((page - 1) * bookPageAmount, bookPageAmount);
+        PageHelper.startPage(page, bookPageAmount);
+        PageInfo<Book> list = new PageInfo<>(bookService.selectAllBook());
         return Result.success(list);
     }
 
@@ -276,7 +279,8 @@ public class BookController {
     @RequiresAuthentication
     public Result selectAllBookByDealMount(@PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Book> list = bookService.selectAllBookByDealMount((page - 1) * bookPageAmount, bookPageAmount);
+        PageHelper.startPage(page, bookPageAmount);
+        PageInfo<Book> list = new PageInfo<>(bookService.selectAllBookByDealMount());
         return Result.success(list);
     }
 
@@ -291,7 +295,8 @@ public class BookController {
     public Result selectBookByCate(@PathVariable("cateId") int cateId,
                                    @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Book> list = bookService.selectBookByCate(cateId, (page - 1) * bookPageAmount, bookPageAmount);
+        PageHelper.startPage(page, bookPageAmount);
+        PageInfo<Book> list = new PageInfo<>(bookService.selectBookByCate(cateId));
         return Result.success(list);
     }
 
@@ -306,7 +311,8 @@ public class BookController {
     public Result selectBookByStore(@PathVariable("storeId") int storeId,
                                     @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Book> list = bookService.selectBookByStore(storeId, (page - 1) * bookPageAmount, bookPageAmount);
+        PageHelper.startPage(page, bookPageAmount);
+        PageInfo<Book> list = new PageInfo<>(bookService.selectBookByStore(storeId));
         return Result.success(list);
     }
 
@@ -321,7 +327,8 @@ public class BookController {
     public Result searchBookByName(@PathVariable("name") String name,
                                    @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Book> list = bookService.searchBookByName(name, (page - 1) * bookPageAmount, bookPageAmount);
+        PageHelper.startPage(page, bookPageAmount);
+        PageInfo<Book> list = new PageInfo<>(bookService.searchBookByName(name));
         return Result.success(list);
     }
 

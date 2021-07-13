@@ -36,12 +36,12 @@ public class CommentService {
         return commentMapper.select(commentId);
     }
 
-    public List<Comment> selectCommentByUser(int userId, int offset, int amount) {
-        return commentMapper.selectByUser(userId, offset, amount);
+    public List<Comment> selectCommentByUser(int userId) {
+        return commentMapper.selectByUser(userId);
     }
 
-    public List<Comment> selectCommentByBook(long bookId, int offset, int amount) {
-        return commentMapper.selectByBook(bookId, offset, amount);
+    public List<Comment> selectCommentByBook(long bookId) {
+        return commentMapper.selectByBook(bookId);
     }
 
     public int selectCommentUserId(int commentId) {
@@ -68,12 +68,12 @@ public class CommentService {
         return replyMapper.select(replyId);
     }
 
-    public List<Reply> selectReplyByUser(int userId, int offset, int amount) {
-        return replyMapper.selectByUser(userId, offset, amount);
+    public List<Reply> selectReplyByUser(int userId) {
+        return replyMapper.selectByUser(userId);
     }
 
-    public List<Reply> selectReplyByComment(int commentId, int offset, int amount) {
-        return replyMapper.selectByComment(commentId, offset, amount);
+    public List<Reply> selectReplyByComment(int commentId) {
+        return replyMapper.selectByComment(commentId);
     }
 
     public int selectReplyUserId(int replyId) {

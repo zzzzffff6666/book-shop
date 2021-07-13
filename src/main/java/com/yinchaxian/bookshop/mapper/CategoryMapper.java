@@ -29,15 +29,13 @@ public interface CategoryMapper {
     Category select(int cateId);
 
     @Select("select * " +
-            "from category " +
-            "limit #{offset}, #{amount}")
+            "from category")
     @ResultType(Category.class)
-    List<Category> selectAll(int offset, int amount);
+    List<Category> selectAll();
 
     @Select("select * " +
             "from category " +
-            "where name like '%${name}%' " +
-            "limit #{offset}, #{amount}")
+            "where name like '%${name}%'")
     @ResultType(Category.class)
-    List<Category> searchByName(String name, int offset, int amount);
+    List<Category> searchByName(String name);
 }

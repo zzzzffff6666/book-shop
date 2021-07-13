@@ -1,5 +1,6 @@
 package com.yinchaxian.bookshop.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.yinchaxian.bookshop.entity.ClickLog;
 import com.yinchaxian.bookshop.http.ErrorMessage;
 import com.yinchaxian.bookshop.http.Result;

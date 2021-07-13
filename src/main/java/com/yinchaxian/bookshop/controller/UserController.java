@@ -1,5 +1,7 @@
 package com.yinchaxian.bookshop.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yinchaxian.bookshop.entity.Receiver;
 import com.yinchaxian.bookshop.entity.Role;
 import com.yinchaxian.bookshop.entity.User;
@@ -31,6 +33,7 @@ import java.util.Map;
 @RestController
 public class UserController {
     private static final int userPageAmount = 20;
+    private static final int receiverPageAmount = 10;
 
     @Autowired
     private UserService userService;
@@ -200,7 +203,8 @@ public class UserController {
     @RequiresPermissions("user:*")
     public Result selectAllUser(@PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<User> list = userService.selectAllUser((page - 1) * userPageAmount, userPageAmount);
+        PageHelper.startPage(page, userPageAmount);
+        PageInfo<User> list = new PageInfo<>(userService.selectAllUser());
         return Result.success(list);
     }
 
@@ -257,7 +261,8 @@ public class UserController {
     @GetMapping("/user_role/{userId}")
     @RequiresPermissions(value = {"user_role:*", "user_role:select"}, logical = Logical.OR)
     public Result selectUserRole(@PathVariable("userId") int userId) {
-        List<Role> list = roleService.selectRoleList(userService.selectUserRole(userId));
+        PageHelper.startPage(1, 8);
+        PageInfo<Role> list = new PageInfo<>(roleService.selectRoleList(userService.selectUserRole(userId)));
         return Result.success(list);
     }
 
@@ -284,7 +289,8 @@ public class UserController {
     @GetMapping("/role/list")
     @RequiresPermissions(value = {"role:*", "role:select"}, logical = Logical.OR)
     public Result selectAllRole() {
-        List<Role> list = roleService.selectAllRole();
+        PageHelper.startPage(1, 8);
+        PageInfo<Role> list = new PageInfo<>(roleService.selectAllRole());
         return Result.success(list);
     }
 
@@ -355,10 +361,12 @@ public class UserController {
      * @param session session信息
      * @return 查询结果
      */
-    @GetMapping("/receiver/all")
-    public Result selectReceiverByUser(HttpSession session) {
+    @GetMapping(value = {"/receiver/list", "/receiver/list/{page}"})
+    public Result selectReceiverByUser(@PathVariable(value = "page", required = false) Integer page, HttpSession session) {
+        if (page == null) page = 1;
         int id = (int) session.getAttribute("userId");
-        List<Receiver> list = receiverService.selectReceiverByUser(id);
+        PageHelper.startPage(page, receiverPageAmount);
+        PageInfo<Receiver> list = new PageInfo<>(receiverService.selectReceiverByUser(id));
         return Result.success(list);
     }
 

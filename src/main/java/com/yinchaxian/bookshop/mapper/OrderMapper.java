@@ -69,36 +69,32 @@ public interface OrderMapper {
     @Select("select * " +
             "from order " +
             "where user_id = #{userId} " +
-            "order by created desc " +
-            "limit #{offset}, #{amount}")
+            "order by created desc")
     @ResultType(Order.class)
-    List<Order> selectByUser(int userId, int offset, int amount);
+    List<Order> selectByUser(int userId);
 
     @Select("select * " +
             "from order " +
             "where user_id = #{userId} " +
             "and status = #{status} " +
-            "order by created desc " +
-            "limit #{offset}, #{amount}")
+            "order by created desc")
     @ResultType(Order.class)
-    List<Order> selectByUserAndStatus(int userId, int status, int offset, int amount);
+    List<Order> selectByUserAndStatus(int userId, int status);
 
     @Select("select * " +
             "from order " +
             "where store_id = #{storeId} " +
-            "order by created desc " +
-            "limit #{offset}, #{amount}")
+            "order by created desc")
     @ResultType(Order.class)
-    List<Order> selectByStore(int storeId, int offset, int amount);
+    List<Order> selectByStore(int storeId);
 
     @Select("select * " +
             "from order " +
             "where store_id = #{storeId} " +
             "and status = #{status} " +
-            "order by created desc " +
-            "limit #{offset}, #{amount}")
+            "order by created desc")
     @ResultType(Order.class)
-    List<Order> selectByStoreAndStatus(int storeId, int status, int offset, int amount);
+    List<Order> selectByStoreAndStatus(int storeId, int status);
 
     @Select("select user_id " +
             "from order " +

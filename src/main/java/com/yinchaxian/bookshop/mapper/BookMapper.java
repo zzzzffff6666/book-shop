@@ -74,38 +74,33 @@ public interface BookMapper {
     Book select(long bookId);
 
     @Select("select * " +
-            "from book " +
-            "limit #{offset}, #{amount}")
+            "from book")
     @ResultType(Book.class)
-    List<Book> selectAll(int offset, int amount);
+    List<Book> selectAll();
 
     @Select("select * " +
             "from book " +
-            "order by deal_mount desc " +
-            "limit #{offset}, #{amount}")
+            "order by deal_mount desc")
     @ResultType(Book.class)
-    List<Book> selectAllByDealMount(int offset, int amount);
+    List<Book> selectAllByDealMount();
 
     @Select("select * " +
             "from book " +
-            "where cate_id = #{cateId} " +
-            "limit #{offset}, #{amount}")
+            "where cate_id = #{cateId}")
     @ResultType(Book.class)
-    List<Book> selectByCate(int cateId, int offset, int amount);
+    List<Book> selectByCate(int cateId);
 
     @Select("select * " +
             "from book " +
-            "where store_id = #{storeId} " +
-            "limit #{offset}, #{amount}")
+            "where store_id = #{storeId}")
     @ResultType(Book.class)
-    List<Book> selectByStore(int storeId, int offset, int amount);
+    List<Book> selectByStore(int storeId);
 
     @Select("select * " +
             "from book " +
-            "where name like '%${name}%' " +
-            "limit #{offset}, #{amount}")
+            "where name like '%${name}%'")
     @ResultType(Book.class)
-    List<Book> searchByName(String name, int offset, int amount);
+    List<Book> searchByName(String name);
 
     @Select("select store_id " +
             "from book " +

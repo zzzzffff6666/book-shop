@@ -32,8 +32,8 @@ public class StoreService {
         return storeMapper.selectByManager(userId);
     }
 
-    public List<Store> searchStoreByName(String name, int offset, int amount) {
-        return storeMapper.searchByName(name, offset, amount);
+    public List<Store> searchStoreByName(String name) {
+        return storeMapper.searchByName(name);
     }
 
     public int selectStoreManagerId(int storeId) {

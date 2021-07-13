@@ -1,5 +1,7 @@
 package com.yinchaxian.bookshop.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yinchaxian.bookshop.entity.Store;
 import com.yinchaxian.bookshop.http.ErrorMessage;
 import com.yinchaxian.bookshop.http.Result;
@@ -11,11 +13,9 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * @author: zhang
@@ -114,11 +114,13 @@ public class StoreController {
      * @param session session信息
      * @return 查询结果
      */
-    @GetMapping("/store/manager")
+    @GetMapping(value = {"/store/manager", "/store/manager/{page}"})
     @RequiresPermissions(value = {"store:*", "store:select"}, logical = Logical.OR)
-    public Result selectStoreByManager(HttpSession session) {
+    public Result selectStoreByManager(@PathVariable(value = "page", required = false) Integer page, HttpSession session) {
+        if (page == null) page = 1;
         int id = (int) session.getAttribute("userId");
-        List<Store> list = storeService.selectStoreByManager(id);
+        PageHelper.startPage(page, storePageAmount);
+        PageInfo<Store> list = new PageInfo<>(storeService.selectStoreByManager(id));
         return Result.success(list);
     }
 
@@ -132,7 +134,8 @@ public class StoreController {
     @RequiresAuthentication
     public Result searchStoreByName(@PathVariable("name") String name, @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Store> list = storeService.searchStoreByName(name, (page - 1) * storePageAmount, storePageAmount);
+        PageHelper.startPage(page, storePageAmount);
+        PageInfo<Store> list = new PageInfo<>(storeService.searchStoreByName(name));
         return Result.success(list);
     }
 }

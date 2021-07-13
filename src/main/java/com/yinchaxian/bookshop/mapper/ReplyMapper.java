@@ -35,18 +35,16 @@ public interface ReplyMapper {
     @Select("select * " +
             "from reply " +
             "where user_id = #{userId} " +
-            "order by date desc " +
-            "limit #{offset}, #{amount}")
+            "order by date desc")
     @ResultType(Reply.class)
-    List<Reply> selectByUser(int userId, int offset, int amount);
+    List<Reply> selectByUser(int userId);
 
     @Select("select * " +
             "from reply " +
             "where comment_id = #{commentId} " +
-            "order by date desc " +
-            "limit #{offset}, #{amount}")
+            "order by date desc")
     @ResultType(Reply.class)
-    List<Reply> selectByComment(int commentId, int offset, int amount);
+    List<Reply> selectByComment(int commentId);
 
     @Select("select user_id " +
             "from reply " +

@@ -53,20 +53,20 @@ public class OrderService {
         return orderMapper.select(orderId);
     }
 
-    public List<Order> selectOrderByUser(int userId, int offset, int amount) {
-        return orderMapper.selectByUser(userId, offset, amount);
+    public List<Order> selectOrderByUser(int userId) {
+        return orderMapper.selectByUser(userId);
     }
 
-    public List<Order> selectOrderByUserAndStatus(int userId, int status, int offset, int amount) {
-        return orderMapper.selectByUserAndStatus(userId, status, offset, amount);
+    public List<Order> selectOrderByUserAndStatus(int userId, int status) {
+        return orderMapper.selectByUserAndStatus(userId, status);
     }
 
-    public List<Order> selectOrderByStore(int storeId, int offset, int amount) {
-        return orderMapper.selectByStore(storeId, offset, amount);
+    public List<Order> selectOrderByStore(int storeId) {
+        return orderMapper.selectByStore(storeId);
     }
 
-    public List<Order> selectOrderByStoreAndStatus(int storeId, int status, int offset, int amount) {
-        return orderMapper.selectByStoreAndStatus(storeId, status, offset, amount);
+    public List<Order> selectOrderByStoreAndStatus(int storeId, int status) {
+        return orderMapper.selectByStoreAndStatus(storeId, status);
     }
 
     public int selectOrderUserId(String orderId) {

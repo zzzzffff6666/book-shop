@@ -28,11 +28,11 @@ public class CategoryService {
         return categoryMapper.select(cateId);
     }
 
-    public List<Category> selectAllCategory(int offset, int amount) {
-        return categoryMapper.selectAll(offset, amount);
+    public List<Category> selectAllCategory() {
+        return categoryMapper.selectAll();
     }
 
-    public List<Category> searchCategoryByName(String name, int offset, int amount) {
-        return categoryMapper.searchByName(name, offset, amount);
+    public List<Category> searchCategoryByName(String name) {
+        return categoryMapper.searchByName(name);
     }
 }

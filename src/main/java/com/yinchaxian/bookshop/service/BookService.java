@@ -56,24 +56,24 @@ public class BookService {
         return bookMapper.select(bookId);
     }
 
-    public List<Book> selectAllBook(int offset, int amount) {
-        return bookMapper.selectAll(offset, amount);
+    public List<Book> selectAllBook() {
+        return bookMapper.selectAll();
     }
 
-    public List<Book> selectAllBookByDealMount(int offset, int amount) {
-        return bookMapper.selectAllByDealMount(offset, amount);
+    public List<Book> selectAllBookByDealMount() {
+        return bookMapper.selectAllByDealMount();
     }
 
-    public List<Book> selectBookByCate(int cateId, int offset, int amount) {
-        return bookMapper.selectByCate(cateId, offset, amount);
+    public List<Book> selectBookByCate(int cateId) {
+        return bookMapper.selectByCate(cateId);
     }
 
-    public List<Book> selectBookByStore(int storeId, int offset, int amount) {
-        return bookMapper.selectByStore(storeId, offset, amount);
+    public List<Book> selectBookByStore(int storeId) {
+        return bookMapper.selectByStore(storeId);
     }
 
-    public List<Book> searchBookByName(String name, int offset, int amount) {
-        return bookMapper.searchByName(name, offset, amount);
+    public List<Book> searchBookByName(String name) {
+        return bookMapper.searchByName(name);
     }
 
     public int selectBookStoreId(long bookId) {

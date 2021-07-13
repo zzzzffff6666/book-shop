@@ -1,5 +1,7 @@
 package com.yinchaxian.bookshop.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yinchaxian.bookshop.entity.Comment;
 import com.yinchaxian.bookshop.entity.Reply;
 import com.yinchaxian.bookshop.http.ErrorMessage;
@@ -10,12 +12,10 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * @author: zhang
@@ -133,7 +133,8 @@ public class CommentController {
     public Result selectCommentByUser(@PathVariable(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) page = 1;
         int id = (int) session.getAttribute("userId");
-        List<Comment> list = commentService.selectCommentByUser(id, (page - 1) * commentPageAmount, commentPageAmount);
+        PageHelper.startPage(page, commentPageAmount);
+        PageInfo<Comment> list = new PageInfo<>(commentService.selectCommentByUser(id));
         return Result.success(list);
     }
 
@@ -147,7 +148,8 @@ public class CommentController {
     @RequiresAuthentication
     public Result selectCommentByBook(@PathVariable("bookId") long bookId,
                                       @PathVariable(value = "page", required = false) Integer page) {
-        List<Comment> list = commentService.selectCommentByBook(bookId, (page - 1) * commentPageAmount, commentPageAmount);
+        PageHelper.startPage(page, commentPageAmount);
+        PageInfo<Comment> list = new PageInfo<>(commentService.selectCommentByBook(bookId));
         return Result.success(list);
     }
 
@@ -248,7 +250,8 @@ public class CommentController {
     public Result selectReplyByUser(@PathVariable(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) page = 1;
         int id = (int) session.getAttribute("userId");
-        List<Reply> list = commentService.selectReplyByUser(id, (page - 1) * replyPageAmount, replyPageAmount);
+        PageHelper.startPage(page, replyPageAmount);
+        PageInfo<Reply> list = new PageInfo<>(commentService.selectReplyByUser(id));
         return Result.success(list);
     }
 
@@ -263,7 +266,8 @@ public class CommentController {
     public Result selectReplyByComment(@PathVariable("commentId") int commentId,
                                        @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
-        List<Reply> list = commentService.selectReplyByComment(commentId, (page - 1) * replyPageAmount, replyPageAmount);
+        PageHelper.startPage(page, replyPageAmount);
+        PageInfo<Reply> list = new PageInfo<>(commentService.selectReplyByComment(commentId));
         return Result.success(list);
     }
 }

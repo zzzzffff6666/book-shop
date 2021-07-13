@@ -51,8 +51,8 @@ public class UserService {
         return userMapper.selectInfoByUserId(userId);
     }
 
-    public List<User> selectAllUser(int offset, int amount) {
-        return userMapper.selectAll(offset, amount);
+    public List<User> selectAllUser() {
+        return userMapper.selectAll();
     }
 
     public boolean insertUserRole(int userId, int roleId) {

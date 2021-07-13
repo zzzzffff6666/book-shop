@@ -36,18 +36,16 @@ public interface CommentMapper {
     @Select("select * " +
             "from comment " +
             "where user_id = #{userId} " +
-            "order by date desc " +
-            "limit #{offset}, #{amount}")
+            "order by date desc")
     @ResultType(Comment.class)
-    List<Comment> selectByUser(int userId, int offset, int amount);
+    List<Comment> selectByUser(int userId);
 
     @Select("select * " +
             "from comment " +
             "where book_id = #{bookId} " +
-            "order by date desc " +
-            "limit #{offset}, #{amount}")
+            "order by date desc")
     @ResultType(Comment.class)
-    List<Comment> selectByBook(long bookId, int offset, int amount);
+    List<Comment> selectByBook(long bookId);
 
     @Select("select user_id " +
             "from comment " +

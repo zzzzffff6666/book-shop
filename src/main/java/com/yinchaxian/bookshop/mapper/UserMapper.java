@@ -59,10 +59,9 @@ public interface UserMapper {
     User selectInfoByUserId(int userId);
 
     @Select("select user_id, username, nickname, email, phone, age, country, address, identity, active " +
-            "from user " +
-            "limit #{offset}, #{amount}")
+            "from user")
     @ResultType(User.class)
-    List<User> selectAll(int offset, int amount);
+    List<User> selectAll();
 
     @Select("select count(*) " +
             "from user " +

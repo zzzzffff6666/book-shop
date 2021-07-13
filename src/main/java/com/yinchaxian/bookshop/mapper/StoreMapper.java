@@ -39,10 +39,9 @@ public interface StoreMapper {
 
     @Select("select * " +
             "from store " +
-            "where name like '%${name}%' " +
-            "limit #{offset}, #{amount}")
+            "where name like '%${name}%'")
     @ResultType(Store.class)
-    List<Store> searchByName(String name, int offset, int amount);
+    List<Store> searchByName(String name);
 
     @Select("select manager_id " +
             "from store " +
