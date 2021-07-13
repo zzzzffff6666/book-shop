@@ -130,6 +130,9 @@ public class UserController {
             return Result.error(ErrorMessage.authError);
         }
 
+        if (userService.isExist(user.getUsername())) {
+            return Result.error(ErrorMessage.nameError);
+        }
         boolean suc = userService.updateUserInfo(user);
         return suc ? Result.success() : Result.error(ErrorMessage.updateError);
     }
