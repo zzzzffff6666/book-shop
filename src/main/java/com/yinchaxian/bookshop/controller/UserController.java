@@ -358,6 +358,7 @@ public class UserController {
 
     /**
      * 查询当前用户所有收件人信息
+     * @param page 页数，默认为 1
      * @param session session信息
      * @return 查询结果
      */

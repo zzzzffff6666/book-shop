@@ -317,7 +317,7 @@ public class BookController {
      * 推荐你可能喜欢的书籍
      * @return 推荐内容
      */
-    @GetMapping("/book/top20")
+    @GetMapping("/book/recommend20")
     @RequiresAuthentication
     public Result getRecommend20Book() {
         Map<String, Object> list = new HashMap<>();

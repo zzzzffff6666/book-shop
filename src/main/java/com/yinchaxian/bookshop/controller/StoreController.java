@@ -111,6 +111,7 @@ public class StoreController {
 
     /**
      * 查询我的店铺
+     * @param page 页数，默认为 1
      * @param session session信息
      * @return 查询结果
      */
