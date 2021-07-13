@@ -48,6 +48,7 @@ public class GlobalExceptionResolver {
     @ExceptionHandler(value = RuntimeException.class)
     public Result topException(RuntimeException e) {
         log.error(e.getMessage());
+        e.printStackTrace();
         return Result.error(e.getMessage());
     }
 }
