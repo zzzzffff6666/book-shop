@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 /**
@@ -47,7 +48,8 @@ public class OrderController {
     public Result insertOrder(@RequestBody Order order, HttpSession session) {
         int id = (int) session.getAttribute("userId");
         Timestamp current = new Timestamp(System.currentTimeMillis());
-        String orderId = current.toString() + "#" + order.getStoreId() + "#" + id;
+        new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(current);
+        String orderId = current.toString() + "_" + order.getStoreId() + "_" + id;
 
         Book book = bookService.selectBook(order.getBookId());
         order.setOrderId(orderId);

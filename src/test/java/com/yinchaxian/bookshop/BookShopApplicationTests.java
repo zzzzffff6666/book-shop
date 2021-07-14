@@ -1,7 +1,6 @@
 package com.yinchaxian.bookshop;
 
-import com.yinchaxian.bookshop.entity.User;
-import com.yinchaxian.bookshop.mapper.UserMapper;
+import com.yinchaxian.bookshop.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,16 +9,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BookShopApplicationTests {
 
     @Autowired
-    private UserMapper userMapper;
+    private OrderService orderService;
 
     @Test
     void contextLoads() {
-        User user = userMapper.select(2);
-        System.out.println(user.toString());
-        System.out.println(user.getUserId());
-        System.out.println(user.getUsername());
-        System.out.println(user.getNickname());
-        System.out.println(user.getPassword());
+        try {
+            int c = orderService.selectOrderUserId("2021-07-14 09:05:27.38#1#300021");
+            System.out.println(c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
