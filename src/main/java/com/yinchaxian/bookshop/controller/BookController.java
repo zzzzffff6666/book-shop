@@ -17,9 +17,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -232,7 +232,8 @@ public class BookController {
      */
     @GetMapping(value = {"/book/list", "/book/list/{page}"})
     @RequiresAuthentication
-    public Result selectAllBook(@PathVariable(value = "page", required = false) Integer page) {
+    public Result selectAllBook(@PathVariable(value = "page", required = false) Integer page,
+                                HttpSession session, HttpServletRequest request) {
         if (page == null) page = 1;
         PageHelper.startPage(page, bookPageAmount);
         PageInfo<Book> list = new PageInfo<>(bookService.selectAllBook());

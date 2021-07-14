@@ -17,9 +17,9 @@ server:
   tomcat:
     accesslog:
       enabled: true
-      directory: /home/yinchaxian/bookshop/tomcat_log
+      directory: E:/yinchaxian/bookshop/tomcat_log
       rotate: true
-      pattern: '%t %a %A %m %U%q %s %D %I %B'
+      pattern: "%h %l %u %t &quot;%r&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; &quot;%{uuid}s;%{userId}s;%{st}s;&quot; %I %O %{X-Forwarded-For}i %v %D"
       buffered: true
       file-date-format: yyyy-MM-dd
       request-attributes-enabled: false

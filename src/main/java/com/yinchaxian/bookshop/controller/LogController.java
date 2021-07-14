@@ -31,30 +31,12 @@ public class LogController {
     //
 
     /**
-     * 删除一段日志
-     * @param start 开始时间
-     * @param end 结束时间
-     * @return 是否成功
-     */
-    @DeleteMapping(value = {"/click_log/{start}", "/click_log/{start}/{end}"})
-    @RequiresPermissions(value = {"click_log:delete", "click_log:*"}, logical = Logical.OR)
-    public Result deleteLog(@PathVariable("start") String start,
-                            @PathVariable(value = "end", required = false) String end) {
-        Timestamp startTime = Timestamp.valueOf(start);
-        Timestamp endTime;
-        if (end == null) endTime = new Timestamp(System.currentTimeMillis());
-        else endTime = Timestamp.valueOf(end);
-        boolean suc = logService.deleteLog(startTime, endTime);
-        return suc ? Result.success() : Result.error(ErrorMessage.deleteError);
-    }
-
-    /**
      * 查询一段日志
      * @param start 开始时间
      * @param end 结束时间
      * @return 查询结果
      */
-    @GetMapping(value = {"/click_log/{start}", "/click_log/{start}/{end}"})
+    @GetMapping(value = {"/click_log/time/{start}", "/click_log/{start}/{end}"})
     @RequiresPermissions(value = {"click_log:select", "click_log:*"}, logical = Logical.OR)
     public Result selectLog(@PathVariable("start") String start,
                             @PathVariable(value = "end", required = false) String end) {
@@ -62,7 +44,14 @@ public class LogController {
         Timestamp endTime;
         if (end == null) endTime = new Timestamp(System.currentTimeMillis());
         else endTime = Timestamp.valueOf(end);
-        List<ClickLog> list = logService.selectLog(startTime, endTime);
+        List<ClickLog> list = logService.selectLogByTime(startTime, endTime);
+        return Result.success(list);
+    }
+
+    @GetMapping("/click_log/user/{userId}")
+    @RequiresPermissions(value = {"click_log:select", "click_log:*"}, logical = Logical.OR)
+    public Result selectLog(@PathVariable("userId") int userId) {
+        List<ClickLog> list = logService.selectLogByUserId(userId);
         return Result.success(list);
     }
 }

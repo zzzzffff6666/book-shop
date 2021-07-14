@@ -1,36 +1,19 @@
 package com.yinchaxian.bookshop.entity;
 
-import java.sql.Timestamp;
-
 public class ClickLog {
-    private Timestamp receiveTime;
-    private String userId;
     private String ipAddress;
+    private String uniqueId;
     private String url;
-    private String referUrl;
+    private String sessionId;
+    private String sessionTimes;
     private String areaAddress;
     private String localAddress;
     private String browserType;
     private String operationSys;
-    private String sessionId;
-    private String sessionTimes;
+    private String referUrl;
+    private String receiveTime;
+    private int userId;
     private String csvp;
-
-    public Timestamp getReceiveTime() {
-        return receiveTime;
-    }
-
-    public void setReceiveTime(Timestamp receiveTime) {
-        this.receiveTime = receiveTime;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getIpAddress() {
         return ipAddress;
@@ -38,6 +21,14 @@ public class ClickLog {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     public String getUrl() {
@@ -48,12 +39,20 @@ public class ClickLog {
         this.url = url;
     }
 
-    public String getReferUrl() {
-        return referUrl;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setReferUrl(String referUrl) {
-        this.referUrl = referUrl;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getSessionTimes() {
+        return sessionTimes;
+    }
+
+    public void setSessionTimes(String sessionTimes) {
+        this.sessionTimes = sessionTimes;
     }
 
     public String getAreaAddress() {
@@ -88,20 +87,28 @@ public class ClickLog {
         this.operationSys = operationSys;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getReferUrl() {
+        return referUrl;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setReferUrl(String referUrl) {
+        this.referUrl = referUrl;
     }
 
-    public String getSessionTimes() {
-        return sessionTimes;
+    public String getReceiveTime() {
+        return receiveTime;
     }
 
-    public void setSessionTimes(String sessionTimes) {
-        this.sessionTimes = sessionTimes;
+    public void setReceiveTime(String receiveTime) {
+        this.receiveTime = receiveTime;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getCsvp() {

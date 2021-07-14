@@ -13,15 +13,11 @@ public class LogService {
     @Autowired
     private ClickLogMapper clickLogMapper;
 
-    public boolean insertLog(ClickLog clickLog) {
-        return clickLogMapper.insert(clickLog) == 1;
+    public List<ClickLog> selectLogByTime(Timestamp start, Timestamp end) {
+        return clickLogMapper.selectByTime(start, end);
     }
 
-    public boolean deleteLog(Timestamp start, Timestamp end) {
-        return clickLogMapper.delete(start, end) > 0;
-    }
-
-    public List<ClickLog> selectLog(Timestamp start, Timestamp end) {
-        return clickLogMapper.select(start, end);
+    public List<ClickLog> selectLogByUserId(int userId) {
+        return clickLogMapper.selectByUserId(userId);
     }
 }
