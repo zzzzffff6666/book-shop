@@ -19,7 +19,7 @@ server:
       enabled: true
       directory: E:/yinchaxian/bookshop/tomcat_log
       rotate: true
-      pattern: "%h %l %u %t &quot;%r&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; &quot;%{uuid}s;%{userId}s;%{st}s;&quot; %I %O %{X-Forwarded-For}i %v %D"
+      pattern: '%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i" "%{uuid}s;%{userId}s;%{st}s;" %I %O %{X-Forwarded-For}i %v %D'
       buffered: true
       file-date-format: yyyy-MM-dd
       request-attributes-enabled: false

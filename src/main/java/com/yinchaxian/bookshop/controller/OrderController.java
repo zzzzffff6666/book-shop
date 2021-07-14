@@ -149,25 +149,28 @@ public class OrderController {
     /**
      * 更新已付款状态
      * @param params 需要更改的信息
-     * @param orderId 订单ID
      * @param session session信息
      * @return 是否成功
      */
-    @PutMapping("/order/pay/{orderId}")
+    @PutMapping("/order/pay")
     @RequiresPermissions(value = {"order:update", "order:*"}, logical = Logical.OR)
-    public Result updateOrderPay(@RequestBody Map<String, String> params,
-                                 @PathVariable("orderId") String orderId, HttpSession session) {
+    public Result updateOrderPay(@RequestBody Map<String, String> params, HttpSession session) {
         int id = (int) session.getAttribute("userId");
-        int userId = orderService.selectOrderUserId(orderId);
-        if (id != userId) {
-            return Result.error(ErrorMessage.authError);
+
+        Timestamp current = new Timestamp(System.currentTimeMillis());
+        boolean suc = true;
+        for (String orderId : params.keySet()) {
+            int userId = orderService.selectOrderUserId(orderId);
+            if (id != userId) {
+                return Result.error(ErrorMessage.authError);
+            }
+
+            // 检查是否已支付
+
+            int paymentType = Integer.parseInt(params.get(orderId));
+            suc = suc & orderService.updateOrderPay(orderId, id, paymentType, current);
         }
 
-        // 检查是否已支付
-
-        int paymentType = Integer.parseInt(params.get("paymentType"));
-        Timestamp current = new Timestamp(System.currentTimeMillis());
-        boolean suc = orderService.updateOrderPay(orderId, id, paymentType, current);
         return suc ? Result.success() : Result.error(ErrorMessage.updateError);
     }
 
