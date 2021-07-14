@@ -335,7 +335,7 @@ public class OrderController {
      */
     @GetMapping({"/order/user/list", "/order/user/list/{page}"})
     @RequiresPermissions(value = {"order:select", "order:*"}, logical = Logical.OR)
-    public Result selectAllOrderByUser(@RequestBody(required = false) Integer status,
+    public Result selectAllOrderByUser(@RequestParam(value = "status", required = false) Integer status,
                                        @PathVariable(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) page = 1;
         int id = (int) session.getAttribute("userId");
