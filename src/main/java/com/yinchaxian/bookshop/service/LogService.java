@@ -17,7 +17,7 @@ public class LogService {
         return clickLogMapper.selectByTime(start, end);
     }
 
-    public List<ClickLog> selectLogByUserId(int userId) {
+    public List<ClickLog> selectLogByUserId(String userId) {
         return clickLogMapper.selectByUserId(userId);
     }
 }

@@ -19,5 +19,5 @@ public interface ClickLogMapper {
             "where user_id = #{userId} " +
             "order by receive_time desc")
     @ResultType(ClickLog.class)
-    List<ClickLog> selectByUserId(int userId);
+    List<ClickLog> selectByUserId(String userId);
 }

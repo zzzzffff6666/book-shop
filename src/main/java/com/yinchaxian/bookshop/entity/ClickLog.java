@@ -12,8 +12,9 @@ public class ClickLog {
     private String operationSys;
     private String referUrl;
     private String receiveTime;
-    private int userId;
-    private String csvp;
+    private String userId;
+    private int csvp;
+    private String dt;
 
     public String getIpAddress() {
         return ipAddress;
@@ -103,19 +104,27 @@ public class ClickLog {
         this.receiveTime = receiveTime;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public String getCsvp() {
+    public int getCsvp() {
         return csvp;
     }
 
-    public void setCsvp(String csvp) {
+    public void setCsvp(int csvp) {
         this.csvp = csvp;
+    }
+
+    public String getDt() {
+        return dt;
+    }
+
+    public void setDt(String dt) {
+        this.dt = dt;
     }
 }

@@ -1,14 +1,11 @@
 package com.yinchaxian.bookshop.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.yinchaxian.bookshop.entity.ClickLog;
-import com.yinchaxian.bookshop.http.ErrorMessage;
 import com.yinchaxian.bookshop.http.Result;
 import com.yinchaxian.bookshop.service.LogService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,9 +45,14 @@ public class LogController {
         return Result.success(list);
     }
 
+    /**
+     * 查询用户的日志
+     * @param userId 用户Id
+     * @return 查询结果
+     */
     @GetMapping("/click_log/user/{userId}")
     @RequiresPermissions(value = {"click_log:select", "click_log:*"}, logical = Logical.OR)
-    public Result selectLog(@PathVariable("userId") int userId) {
+    public Result selectLog(@PathVariable("userId") String userId) {
         List<ClickLog> list = logService.selectLogByUserId(userId);
         return Result.success(list);
     }
