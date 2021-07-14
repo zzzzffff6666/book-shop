@@ -23,5 +23,6 @@ public interface BookRateMapper {
             "from book_rate " +
             "where user_id = #{userId} " +
             "and book_id = #{bookId}")
+    @ResultType(Integer.class)
     int selectScore(int userId, long bookId);
 }

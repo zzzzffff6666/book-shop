@@ -50,5 +50,6 @@ public interface CommentMapper {
     @Select("select user_id " +
             "from comment " +
             "where comment_id = #{commentId}")
+    @ResultType(Integer.class)
     int selectUserId(int commentId);
 }

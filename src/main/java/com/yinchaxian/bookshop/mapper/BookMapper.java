@@ -122,5 +122,6 @@ public interface BookMapper {
     @Select("select store_id " +
             "from book " +
             "where book_id = #{bookId}")
+    @ResultType(Integer.class)
     int selectStoreId(long bookId);
 }

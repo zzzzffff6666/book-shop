@@ -49,5 +49,6 @@ public interface ReplyMapper {
     @Select("select user_id " +
             "from reply " +
             "where reply_id = #{replyId}")
+    @ResultType(Integer.class)
     int selectUserId(int replyId);
 }

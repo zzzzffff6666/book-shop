@@ -9,8 +9,8 @@ import java.util.List;
 public interface OrderMapper {
     @Insert("insert into `order` " +
             "values(#{orderId}, #{userId}, #{receiverId}, #{storeId}, #{bookId}, " +
-            "#{bookName}, #{imageUrl}, #{orderMount}, #{price}, #{postFee}, #{paymentType}, " +
-            "0, #{created}, null, null, #{updated})")
+            "#{bookName}, #{imageUrl}, #{orderMount}, #{price}, #{postFee}, " +
+            "#{paymentType}, 0, #{created}, null, null, #{updated})")
     int insert(Order order);
 
     @Delete("delete from `order` " +
@@ -99,16 +99,19 @@ public interface OrderMapper {
     @Select("select user_id " +
             "from `order` " +
             "where order_id = #{orderId}")
+    @ResultType(Integer.class)
     int selectUserId(String orderId);
 
     @Select("select store_id " +
             "from `order` " +
             "where order_id = #{orderId}")
+    @ResultType(Integer.class)
     int selectStoreId(String orderId);
 
     @Select("select book_id " +
             "from `order` " +
             "where order_id = #{orderId}")
+    @ResultType(Long.class)
     long selectBookId(String orderId);
 
     @Select("select count(*) " +
@@ -117,5 +120,6 @@ public interface OrderMapper {
             "and book_id = #{bookId} " +
             "and status = 3 " +
             "group by (orderId)")
+    @ResultType(Integer.class)
     int selectTimesByUserAndBook(int userId, long bookId);
 }

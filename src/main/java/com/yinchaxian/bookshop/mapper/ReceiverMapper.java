@@ -44,5 +44,6 @@ public interface ReceiverMapper {
     @Select("select user_id " +
             "from receiver " +
             "where receiver_id = #{receiverId}")
+    @ResultType(Integer.class)
     int selectUserId(int receiverId);
 }

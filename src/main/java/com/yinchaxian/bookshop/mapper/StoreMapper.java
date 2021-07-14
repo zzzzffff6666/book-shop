@@ -46,5 +46,6 @@ public interface StoreMapper {
     @Select("select manager_id " +
             "from store " +
             "where store_id = #{storeId}")
+    @ResultType(Integer.class)
     int selectManagerId(int storeId);
 }
