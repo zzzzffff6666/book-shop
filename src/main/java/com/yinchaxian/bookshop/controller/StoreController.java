@@ -7,6 +7,7 @@ import com.yinchaxian.bookshop.http.ErrorMessage;
 import com.yinchaxian.bookshop.http.Result;
 import com.yinchaxian.bookshop.service.BookService;
 import com.yinchaxian.bookshop.service.StoreService;
+import com.yinchaxian.bookshop.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -29,7 +30,7 @@ public class StoreController {
     @Autowired
     private StoreService storeService;
     @Autowired
-    private BookService bookService;
+    private UserService userService;
 
     //
     // Store部分：
@@ -49,6 +50,7 @@ public class StoreController {
             return Result.error(ErrorMessage.authError);
         }
 
+        userService.insertUserRole(id, 6);
         boolean suc = storeService.insertStore(store);
         return suc ? Result.success() : Result.error(ErrorMessage.insertError);
     }

@@ -65,7 +65,7 @@ public class UserController {
             User user = userService.selectUserForLogin(params.get("username"));
             session.setAttribute("userId", user.getUserId());
             session.setAttribute("username", user.getUsername());
-            user.setPassword(null);
+            user.setPassword((subject.hasRole("super") || subject.hasRole("root")) + "");
             user.setSalt(null);
             return Result.success(user);
         } catch (AuthenticationException e) {

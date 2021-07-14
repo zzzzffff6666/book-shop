@@ -48,8 +48,8 @@ public class OrderController {
     public Result insertOrder(@RequestBody Order order, HttpSession session) {
         int id = (int) session.getAttribute("userId");
         Timestamp current = new Timestamp(System.currentTimeMillis());
-        new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(current);
-        String orderId = current.toString() + "_" + order.getStoreId() + "_" + id;
+        String s = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(current);
+        String orderId = s + "_" + order.getStoreId() + "_" + id;
 
         Book book = bookService.selectBook(order.getBookId());
         order.setOrderId(orderId);
@@ -149,6 +149,8 @@ public class OrderController {
         if (id != userId) {
             return Result.error(ErrorMessage.authError);
         }
+
+        // 检查是否已支付
 
         int paymentType = Integer.parseInt(params.get("paymentType"));
         Timestamp current = new Timestamp(System.currentTimeMillis());
