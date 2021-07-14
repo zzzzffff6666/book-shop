@@ -42,6 +42,11 @@ public interface BookMapper {
     int updateInfo(Book book);
 
     @Update("update book " +
+            "set store_mount = store_mount + #{addition} " +
+            "where book_id = #{bookId}")
+    void updateStoreMount(long bookId, int addition);
+
+    @Update("update book " +
             "set price = #{price}, " +
             "market_price = #{marketPrice}, " +
             "member_price = #{memberPrice}, " +
@@ -60,7 +65,7 @@ public interface BookMapper {
     @Update("update book " +
             "set deal_mount = deal_amount + #{addition} " +
             "where book_id = #{bookId}")
-    int updateDeal(long bookId, int addition);
+    void updateDeal(long bookId, int addition);
 
     @Update("update book " +
             "set look_mount = look_mount + #{addition} " +
@@ -71,18 +76,18 @@ public interface BookMapper {
             "set score = (score * score_number + #{score}) / (score_number + 1), " +
             "score_number = score_number + 1 " +
             "where book_id = #{bookId}")
-    int updateScoreAdd(long bookId, int score);
+    void updateScoreAdd(long bookId, int score);
 
     @Update("update book " +
             "set score = (score * score_number - #{score}) / (score_number - 1), " +
             "score_number = score_number - 1 " +
             "where book_id = #{bookId}")
-    int updateScoreDelete(long bookId, int score);
+    void updateScoreDelete(long bookId, int score);
 
     @Update("update book " +
             "set score = (score * score_number + #{score}) / (score_number) " +
             "where book_id = #{bookId}")
-    int updateScoreUpdate(long bookId, int score);
+    void updateScoreUpdate(long bookId, int score);
 
     @Select("select * " +
             "from book " +

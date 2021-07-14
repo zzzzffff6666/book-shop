@@ -14,6 +14,16 @@ mybatis:
 
 server:
   port: 8080
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /home/yinchaxian/bookshop/tomcat_log
+      rotate: true
+      pattern: '%t %a %A %m %U%q %s %D %I %B'
+      buffered: true
+      file-date-format: yyyy-MM-dd
+      request-attributes-enabled: false
+      rename-on-rotate: false
 
 #logging:
 #  file:
@@ -25,4 +35,6 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countsql
+
+
 

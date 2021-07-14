@@ -15,4 +15,5 @@ public interface ErrorMessage {
     String commentError = "未购买，不能评论";
     String rateError = "未购买，不能评分";
     String unknownError = "未知错误";
+    String storeError = "库存不足";
 }

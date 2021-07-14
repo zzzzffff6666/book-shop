@@ -33,6 +33,10 @@ public class BookService {
         return bookMapper.updateInfo(book) == 1;
     }
 
+    public void updateBookStoreMount(long bookId, int addition) {
+        bookMapper.updateStoreMount(bookId, addition);
+    }
+
     public boolean updateBookPrice(Book book) {
         return bookMapper.updatePrice(book) == 1;
     }
@@ -41,21 +45,21 @@ public class BookService {
         return bookMapper.updatePriceOnce(storeId, discount) > 0;
     }
 
-    public boolean updateBookDeal(long bookId, int addition) {
-        return bookMapper.updateDeal(bookId, addition) == 1;
+    public void updateBookDeal(long bookId, int addition) {
+        bookMapper.updateDeal(bookId, addition);
     }
 
     public boolean updateBookLook(long bookId, int addition) {
         return bookMapper.updateLook(bookId, addition) == 1;
     }
 
-    public boolean updateBookScore(long bookId, int score, int type) {
+    public void updateBookScore(long bookId, int score, int type) {
         if (type == 0) {
-            return bookMapper.updateScoreAdd(bookId, score) == 1;
+            bookMapper.updateScoreAdd(bookId, score);
         } else if (type == 2) {
-            return bookMapper.updateScoreDelete(bookId, score) == 1;
+            bookMapper.updateScoreDelete(bookId, score);
         } else {
-            return bookMapper.updateScoreUpdate(bookId, score) == 1;
+            bookMapper.updateScoreUpdate(bookId, score);
         }
     }
 

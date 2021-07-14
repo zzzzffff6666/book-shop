@@ -52,6 +52,10 @@ public class OrderController {
         String orderId = s + "_" + order.getStoreId() + "_" + id;
 
         Book book = bookService.selectBook(order.getBookId());
+        if (book.getStoreMount() < order.getOrderMount()) {
+            return Result.error(ErrorMessage.storeError);
+        }
+
         order.setOrderId(orderId);
         order.setUserId(id);
         order.setStoreId(book.getStoreId());
@@ -70,7 +74,11 @@ public class OrderController {
         orderDetail.setTotalPrice(order.getPrice());
 
         boolean suc = orderService.insertOrder(order) && orderService.insertOrderDetail(orderDetail);
-        return suc ? Result.success() : Result.error(ErrorMessage.insertError);
+        if (suc) {
+            bookService.updateBookStoreMount(book.getBookId(), -order.getOrderMount());
+            return Result.success();
+        }
+        return Result.error(ErrorMessage.insertError);
     }
 
     /**
@@ -88,8 +96,13 @@ public class OrderController {
         if (id != userId) {
             return Result.error(ErrorMessage.authError);
         }
+        Order order = orderService.selectOrder(orderId);
         boolean suc = orderService.deleteOrder(orderId);
-        return suc ? Result.success() : Result.error(ErrorMessage.deleteError);
+        if (suc) {
+            bookService.updateBookStoreMount(order.getBookId(), order.getOrderMount());
+            return Result.success();
+        }
+        return Result.error(ErrorMessage.deleteError);
     }
 
     /**
