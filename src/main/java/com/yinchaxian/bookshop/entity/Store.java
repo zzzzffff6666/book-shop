@@ -8,7 +8,7 @@ public class Store {
     private String name;
     private String phone;
     private String position;
-    private String desc;
+    private String introduction;
     private Timestamp created;
     private Timestamp updated;
 
@@ -52,12 +52,12 @@ public class Store {
         this.position = position;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getIntroduction() {
+        return introduction;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 
     public Timestamp getCreated() {

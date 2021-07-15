@@ -8,7 +8,7 @@ import java.util.List;
 public interface StoreMapper {
     @Insert("insert into store " +
             "values(null, #{managerId}, #{name}, #{phone}, " +
-            "#{position}, #{desc}, #{created}, #{updated})")
+            "#{position}, #{introduction}, #{created}, #{updated})")
     @Options(useGeneratedKeys = true, keyProperty = "storeId", keyColumn = "store_id")
     int insert(Store store);
 
@@ -17,11 +17,10 @@ public interface StoreMapper {
     int delete(int storeId);
 
     @Update("update store " +
-            "set manager_id = #{managerId}, " +
-            "name = #{name}, " +
+            "set name = #{name}, " +
             "phone = #{phone}, " +
             "position = #{position}, " +
-            "desc = #{desc}" +
+            "introduction = #{introduction}, " +
             "updated = #{updated} " +
             "where store_id = #{storeId}")
     int update(Store store);

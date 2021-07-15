@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 
 /**
  * @author: zhang
@@ -99,7 +100,7 @@ public class StoreController {
         if (id != managerId) {
             return Result.error(ErrorMessage.authError);
         }
-
+        store.setUpdated(new Timestamp(System.currentTimeMillis()));
         boolean suc = storeService.updateStore(store);
         return suc ? Result.success() : Result.error(ErrorMessage.updateError);
     }

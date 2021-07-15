@@ -1,5 +1,6 @@
 package com.yinchaxian.bookshop;
 
+import com.yinchaxian.bookshop.entity.Store;
 import com.yinchaxian.bookshop.entity.User;
 import com.yinchaxian.bookshop.service.*;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -38,6 +39,18 @@ class BookShopApplicationTests {
         boolean suc = userService.insertUser(user);
         System.out.println("success: " + suc);
         System.out.println("userId: " + user.getUserId());
+    }
+
+    @Test
+    void contextLoad2() {
+        Store store = new Store();
+        store.setStoreId(20);
+        store.setManagerId(14);
+        store.setName("zzz");
+        store.setPhone("1231122312");
+        store.setIntroduction("cccc");
+        boolean suc = storeService.updateStore(store);
+        System.out.println(suc);
     }
 
 }
