@@ -56,4 +56,11 @@ public class LogController {
         List<ClickLog> list = logService.selectLogByUserId(userId);
         return Result.success(list);
     }
+
+    @GetMapping("/conversion_index/list")
+    @RequiresPermissions("click_log:*")
+    public Result selectConversionIndex() {
+        return Result.success(logService.selectAllConversionIndex());
+    }
+
 }

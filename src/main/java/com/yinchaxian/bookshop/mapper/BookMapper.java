@@ -52,7 +52,7 @@ public interface BookMapper {
             "market_price = #{marketPrice}, " +
             "member_price = #{memberPrice}, " +
             "discount = #{discount} " +
-            "where book_id = #{bookId}, " +
+            "where book_id = #{bookId} " +
             "and store_id = #{storeId}")
     int updatePrice(Book book);
 
@@ -92,7 +92,7 @@ public interface BookMapper {
 
     @Select("select * " +
             "from book " +
-            "where book_id =#{bookId}")
+            "where book_id = #{bookId}")
     @ResultType(Book.class)
     Book select(long bookId);
 
@@ -109,7 +109,7 @@ public interface BookMapper {
 
     @Select("select * " +
             "from book " +
-            "order by look_mount desc" +
+            "order by look_mount desc " +
             "limit 0, 20")
     @ResultType(Book.class)
     List<Book> selectTop20();
@@ -117,7 +117,7 @@ public interface BookMapper {
     @Select("select * " +
             "from book " +
             "where cate_id = #{cateId}" +
-            "order by look_mount desc" +
+            "order by look_mount desc " +
             "limit 0, 20")
     @ResultType(Book.class)
     List<Book> selectCategoryTop20(int cateId);
