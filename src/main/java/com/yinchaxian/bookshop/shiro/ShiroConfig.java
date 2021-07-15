@@ -4,6 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -78,7 +79,6 @@ public class ShiroConfig {
         //第一个参数为用户名,第二个参数为realmName,test想要操作权限的用户
         SimplePrincipalCollection principals = new SimplePrincipalCollection(username,realmName);
         subject.runAs(principals);
-        permissionRealm.getAuthorizationCache().remove(subject.getPrincipals());
         subject.releaseRunAs();
     }
 }

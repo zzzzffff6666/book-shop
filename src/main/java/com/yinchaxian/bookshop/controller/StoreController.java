@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.yinchaxian.bookshop.entity.Store;
 import com.yinchaxian.bookshop.http.ErrorMessage;
 import com.yinchaxian.bookshop.http.Result;
-import com.yinchaxian.bookshop.service.BookService;
 import com.yinchaxian.bookshop.service.StoreService;
 import com.yinchaxian.bookshop.service.UserService;
 import com.yinchaxian.bookshop.shiro.PermissionRealm;
@@ -118,18 +117,15 @@ public class StoreController {
 
     /**
      * 查询我的店铺
-     * @param page 页数，默认为 1
      * @param session session信息
      * @return 查询结果
      */
-    @GetMapping(value = {"/store/manager", "/store/manager/{page}"})
+    @GetMapping("/store/manager")
     @RequiresPermissions(value = {"store:*", "store:select"}, logical = Logical.OR)
-    public Result selectStoreByManager(@PathVariable(value = "page", required = false) Integer page, HttpSession session) {
-        if (page == null) page = 1;
+    public Result selectStoreByManager(HttpSession session) {
         int id = (int) session.getAttribute("userId");
-        PageHelper.startPage(page, storePageAmount);
-        PageInfo<Store> list = new PageInfo<>(storeService.selectStoreByManager(id));
-        return Result.success(list);
+        Store store = storeService.selectStoreByManager(id);
+        return Result.success(store);
     }
 
     /**
@@ -147,6 +143,11 @@ public class StoreController {
         return Result.success(list);
     }
 
+    /**
+     * 查询店铺ID
+     * @param session session信息
+     * @return 查询结果
+     */
     @GetMapping("/store/id")
     @RequiresAuthentication
     public Result selectStoreId(HttpSession session) {

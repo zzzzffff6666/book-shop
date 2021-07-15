@@ -36,7 +36,7 @@ public interface StoreMapper {
             "from store " +
             "where manager_id = #{userId}")
     @ResultType(Store.class)
-    List<Store> selectByManager(int userId);
+    Store selectByManager(int userId);
 
     @Select("select * " +
             "from store " +

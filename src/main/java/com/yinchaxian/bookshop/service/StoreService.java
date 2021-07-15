@@ -28,7 +28,7 @@ public class StoreService {
         return storeMapper.select(storeId);
     }
 
-    public List<Store> selectStoreByManager(int userId) {
+    public Store selectStoreByManager(int userId) {
         return storeMapper.selectByManager(userId);
     }
 
