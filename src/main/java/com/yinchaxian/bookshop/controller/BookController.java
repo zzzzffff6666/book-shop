@@ -221,6 +221,7 @@ public class BookController {
     @GetMapping("/book/{bookId}")
     @RequiresAuthentication
     public Result selectBook(@PathVariable("bookId") long bookId) {
+        bookService.updateBookLook(bookId, 1);
         Book book = bookService.selectBook(bookId);
         return Result.success(book);
     }
@@ -308,9 +309,13 @@ public class BookController {
      */
     @GetMapping("/book/top20")
     @RequiresAuthentication
-    public Result getTop20Book() {
+    public Result getTop20Book(@RequestParam(value = "cateId", required = false) Integer cateId) {
         Map<String, Object> list = new HashMap<>();
-        list.put("list", bookService.getTop20Book());
+        if (cateId == null) {
+            list.put("list", bookService.selectTop20Book());
+        } else {
+            list.put("list", bookService.selectCategoryTop20Book(cateId));
+        }
         return Result.success(list);
     }
 
@@ -322,7 +327,7 @@ public class BookController {
     @RequiresAuthentication
     public Result getRecommend20Book() {
         Map<String, Object> list = new HashMap<>();
-        list.put("list", bookService.getRecommend20Book());
+        list.put("list", bookService.selectRecommend20Book());
         return Result.success(list);
     }
 

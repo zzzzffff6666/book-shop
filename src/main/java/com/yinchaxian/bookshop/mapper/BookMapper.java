@@ -108,6 +108,21 @@ public interface BookMapper {
 
     @Select("select * " +
             "from book " +
+            "order by look_mount desc" +
+            "limit 0, 20")
+    @ResultType(Book.class)
+    List<Book> selectTop20();
+
+    @Select("select * " +
+            "from book " +
+            "where cate_id = #{cateId}" +
+            "order by look_mount desc" +
+            "limit 0, 20")
+    @ResultType(Book.class)
+    List<Book> selectCategoryTop20(int cateId);
+
+    @Select("select * " +
+            "from book " +
             "where cate_id = #{cateId}")
     @ResultType(Book.class)
     List<Book> selectByCate(int cateId);

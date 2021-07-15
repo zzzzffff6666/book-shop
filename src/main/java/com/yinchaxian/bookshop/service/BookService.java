@@ -87,11 +87,15 @@ public class BookService {
         return bookMapper.searchByName(name);
     }
 
-    public List<Book> getTop20Book() {
-        return new ArrayList<>();
+    public List<Book> selectTop20Book() {
+        return bookMapper.selectTop20();
     }
 
-    public List<Book> getRecommend20Book() {
+    public List<Book> selectCategoryTop20Book(int cateId) {
+        return bookMapper.selectCategoryTop20(cateId);
+    }
+
+    public List<Book> selectRecommend20Book() {
         return new ArrayList<>();
     }
 
