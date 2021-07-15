@@ -362,7 +362,7 @@ public class OrderController {
      * @param session session信息
      * @return 查询结果
      */
-    @GetMapping({"/order/stroe/list", "/order/stroe/list/{page}"})
+    @GetMapping({"/order/store/list", "/order/store/list/{page}"})
     @RequiresPermissions(value = {"order:select", "order:*"}, logical = Logical.OR)
     public Result selectAllOrderByStore(@RequestBody(required = false) Integer status,
                                         @PathVariable(value = "page", required = false) Integer page, HttpSession session) {

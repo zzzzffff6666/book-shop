@@ -335,7 +335,7 @@ public class UserController {
      * @param session session信息
      * @return 是否成功
      */
-    @PutMapping("/receiver/")
+    @PutMapping("/receiver")
     public Result updateReceiver(@RequestBody Receiver receiver, HttpSession session) {
         int id = (int) session.getAttribute("userId");
         if (id != receiver.getUserId()) {

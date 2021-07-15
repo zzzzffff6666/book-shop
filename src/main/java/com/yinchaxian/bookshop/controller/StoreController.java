@@ -50,9 +50,12 @@ public class StoreController {
             return Result.error(ErrorMessage.authError);
         }
 
-        userService.insertUserRole(id, 6);
         boolean suc = storeService.insertStore(store);
-        return suc ? Result.success() : Result.error(ErrorMessage.insertError);
+        if (suc) {
+            userService.insertUserRole(id, 6);
+            return Result.success();
+        }
+        return Result.error(ErrorMessage.insertError);
     }
 
     /**
