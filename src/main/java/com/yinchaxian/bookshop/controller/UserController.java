@@ -305,6 +305,7 @@ public class UserController {
      * @return 是否成功
      */
     @PostMapping("/receiver")
+    @RequiresPermissions(value = {"receiver:insert", "receiver:*"}, logical = Logical.OR)
     public Result insertReceiver(@RequestBody Receiver receiver, HttpSession session) {
         int id = (int) session.getAttribute("userId");
         receiver.setUserId(id);
@@ -319,6 +320,7 @@ public class UserController {
      * @return 是否成功
      */
     @DeleteMapping("/receiver/{receiverId}")
+    @RequiresPermissions(value = {"receiver:delete", "receiver:*"}, logical = Logical.OR)
     public Result deleteReceiver(@PathVariable("receiverId") int receiverId, HttpSession session) {
         int id = (int) session.getAttribute("userId");
         int userId = receiverService.selectReceiverUserId(receiverId);
@@ -336,6 +338,7 @@ public class UserController {
      * @return 是否成功
      */
     @PutMapping("/receiver")
+    @RequiresPermissions(value = {"receiver:update", "receiver:*"}, logical = Logical.OR)
     public Result updateReceiver(@RequestBody Receiver receiver, HttpSession session) {
         int id = (int) session.getAttribute("userId");
         if (id != receiver.getUserId()) {
@@ -351,6 +354,7 @@ public class UserController {
      * @return 查询结果
      */
     @GetMapping("/receiver/{receiverId}")
+    @RequiresPermissions(value = {"receiver:select", "receiver:*"}, logical = Logical.OR)
     public Result selectReceiver(@PathVariable("receiverId") int receiverId) {
         Receiver receiver = receiverService.selectReceiver(receiverId);
         return Result.success(receiver);
@@ -363,6 +367,7 @@ public class UserController {
      * @return 查询结果
      */
     @GetMapping(value = {"/receiver/list", "/receiver/list/{page}"})
+    @RequiresPermissions(value = {"receiver:select", "receiver:*"}, logical = Logical.OR)
     public Result selectReceiverByUser(@PathVariable(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) page = 1;
         int id = (int) session.getAttribute("userId");

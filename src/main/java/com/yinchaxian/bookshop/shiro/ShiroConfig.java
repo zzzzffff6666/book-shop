@@ -1,8 +1,11 @@
 package com.yinchaxian.bookshop.shiro;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -67,5 +70,15 @@ public class ShiroConfig {
         //加密次数 加密2次
         hashedCredentialsMatcher.setHashIterations(2);
         return hashedCredentialsMatcher;
+    }
+
+    public static void reloadAuthorizing(PermissionRealm permissionRealm, String username){
+        Subject subject = SecurityUtils.getSubject();
+        String realmName = subject.getPrincipals().getRealmNames().iterator().next();
+        //第一个参数为用户名,第二个参数为realmName,test想要操作权限的用户
+        SimplePrincipalCollection principals = new SimplePrincipalCollection(username,realmName);
+        subject.runAs(principals);
+        permissionRealm.getAuthorizationCache().remove(subject.getPrincipals());
+        subject.releaseRunAs();
     }
 }

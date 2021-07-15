@@ -8,6 +8,8 @@ import com.yinchaxian.bookshop.http.Result;
 import com.yinchaxian.bookshop.service.BookService;
 import com.yinchaxian.bookshop.service.StoreService;
 import com.yinchaxian.bookshop.service.UserService;
+import com.yinchaxian.bookshop.shiro.PermissionRealm;
+import com.yinchaxian.bookshop.shiro.ShiroConfig;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -31,6 +33,8 @@ public class StoreController {
     private StoreService storeService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PermissionRealm permissionRealm;
 
     //
     // Store部分：
@@ -50,7 +54,8 @@ public class StoreController {
         boolean suc = storeService.insertStore(store);
         if (suc) {
             userService.insertUserRole(id, 6);
-            return Result.success();
+            ShiroConfig.reloadAuthorizing(permissionRealm, session.getAttribute("username").toString());
+            return Result.success(store);
         }
         return Result.error(ErrorMessage.insertError);
     }
