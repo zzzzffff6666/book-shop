@@ -70,7 +70,7 @@ public interface BookMapper {
     @Update("update book " +
             "set look_mount = look_mount + #{addition} " +
             "where book_id = #{bookId}")
-    int updateLook(long bookId, int addition);
+    void updateLook(long bookId, int addition);
 
     @Update("update book " +
             "set score = (score * score_number + #{score}) / (score_number + 1), " +
@@ -120,6 +120,17 @@ public interface BookMapper {
             "limit 0, 20")
     @ResultType(Book.class)
     List<Book> selectCategoryTop20(int cateId);
+
+    @Select("<script>" +
+            "select * " +
+            "from book " +
+            "where book_id in " +
+            "<foreach item='item' index='index' collection='list' open='(' separator=',' close=')'>" +
+            "#{item}" +
+            "</foreach> " +
+            "</script>")
+    @ResultType(Book.class)
+    List<Book> selectBookByList(List<Integer> list);
 
     @Select("select * " +
             "from book " +

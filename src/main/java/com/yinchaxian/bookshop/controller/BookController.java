@@ -323,13 +323,15 @@ public class BookController {
 
     /**
      * 推荐你可能喜欢的书籍
+     * @param session session信息
      * @return 推荐内容
      */
     @GetMapping("/book/recommend20")
     @RequiresAuthentication
-    public Result getRecommend20Book() {
+    public Result getRecommend20Book(HttpSession session) {
         Map<String, Object> list = new HashMap<>();
-        list.put("list", bookService.selectRecommend20Book());
+        int id = (int) session.getAttribute("userId");
+        list.put("list", bookService.selectRecommend20Book(id));
         return Result.success(list);
     }
 

@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserRecommendMapper {
     @Select("select book_id " +
             "from user_recommend " +
-            "where user_id = #{userId}")
+            "where user_id = #{userId} " +
+            "order by rand()" +
+            "limit 20")
     List<Integer> selectRecommend20(int userId);
 }

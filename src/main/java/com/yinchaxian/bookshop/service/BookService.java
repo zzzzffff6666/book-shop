@@ -4,6 +4,7 @@ import com.yinchaxian.bookshop.entity.Book;
 import com.yinchaxian.bookshop.entity.BookRate;
 import com.yinchaxian.bookshop.mapper.BookMapper;
 import com.yinchaxian.bookshop.mapper.BookRateMapper;
+import com.yinchaxian.bookshop.mapper.UserRecommendMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class BookService {
     private BookMapper bookMapper;
     @Autowired
     private BookRateMapper bookRateMapper;
+    @Autowired
+    private UserRecommendMapper recommendMapper;
 
     public boolean insertBook(Book book) {
         return bookMapper.insert(book) == 1;
@@ -49,8 +52,8 @@ public class BookService {
         bookMapper.updateDeal(bookId, addition);
     }
 
-    public boolean updateBookLook(long bookId, int addition) {
-        return bookMapper.updateLook(bookId, addition) == 1;
+    public void updateBookLook(long bookId, int addition) {
+        bookMapper.updateLook(bookId, addition);
     }
 
     public void updateBookScore(long bookId, int score, int type) {
@@ -95,8 +98,8 @@ public class BookService {
         return bookMapper.selectCategoryTop20(cateId);
     }
 
-    public List<Book> selectRecommend20Book() {
-        return new ArrayList<>();
+    public List<Book> selectRecommend20Book(int userId) {
+        return bookMapper.selectBookByList(recommendMapper.selectRecommend20(userId));
     }
 
     public int selectBookStoreId(long bookId) {
