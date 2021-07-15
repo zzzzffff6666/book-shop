@@ -39,4 +39,8 @@ public class StoreService {
     public int selectStoreManagerId(int storeId) {
         return storeMapper.selectManagerId(storeId);
     }
+
+    public Integer selectStoreId(int managerId) {
+        return storeMapper.selectStoreId(managerId);
+    }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface StoreMapper {
     @Insert("insert into store " +
             "values(null, #{managerId}, #{name}, #{phone}, " +
-            "#{position}, #{created}, #{updated})")
+            "#{position}, #{desc}, #{created}, #{updated})")
     @Options(useGeneratedKeys = true, keyProperty = "storeId", keyColumn = "store_id")
     int insert(Store store);
 
@@ -21,6 +21,7 @@ public interface StoreMapper {
             "name = #{name}, " +
             "phone = #{phone}, " +
             "position = #{position}, " +
+            "desc = #{desc}" +
             "updated = #{updated} " +
             "where store_id = #{storeId}")
     int update(Store store);
@@ -48,4 +49,10 @@ public interface StoreMapper {
             "where store_id = #{storeId}")
     @ResultType(Integer.class)
     int selectManagerId(int storeId);
+
+    @Select("select store_id " +
+            "from store " +
+            "where manager_id = #{managerId}")
+    @ResultType(Integer.class)
+    Integer selectStoreId(int managerId);
 }

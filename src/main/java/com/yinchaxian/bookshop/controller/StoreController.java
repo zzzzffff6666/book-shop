@@ -146,4 +146,12 @@ public class StoreController {
         PageInfo<Store> list = new PageInfo<>(storeService.searchStoreByName(name));
         return Result.success(list);
     }
+
+    @GetMapping("/store/id")
+    @RequiresAuthentication
+    public Result selectStoreId(HttpSession session) {
+        int id = (int) session.getAttribute("userId");
+        Integer storeId = storeService.selectStoreId(id);
+        return storeId == null ? Result.error(ErrorMessage.selectError) : Result.success(storeId);
+    }
 }
