@@ -50,6 +50,9 @@ public class StoreController {
     @RequiresPermissions(value = {"store:*", "store:insert"}, logical = Logical.OR)
     public Result insertStore(@RequestBody Store store, HttpSession session) {
         int id = (int) session.getAttribute("userId");
+        if (storeService.selectStoreByManager(id) != null) {
+            return Result.error(ErrorMessage.shopExistError);
+        }
         store.setManagerId(id);
         boolean suc = storeService.insertStore(store);
         if (suc) {

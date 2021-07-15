@@ -141,7 +141,7 @@ public class BookController {
         int id = (int) session.getAttribute("userId");
         Integer storeId = storeService.selectStoreId(id);
         if (storeId == null) {
-            return Result.error(ErrorMessage.shopError);
+            return Result.error(ErrorMessage.shopNotExistError);
         }
         book.setStoreId(storeId);
         book.setDealMount(0);
