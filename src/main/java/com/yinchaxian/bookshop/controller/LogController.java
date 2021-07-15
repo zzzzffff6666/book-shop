@@ -57,6 +57,10 @@ public class LogController {
         return Result.success(list);
     }
 
+    /**
+     * 查询购买转化率
+     * @return 查询结果
+     */
     @GetMapping("/conversion_index/list")
     @RequiresPermissions("click_log:*")
     public Result selectConversionIndex() {
