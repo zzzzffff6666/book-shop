@@ -80,7 +80,7 @@ class BookShopApplicationTests {
         for (int i = 0; i < 10; ++i) {
             List<BookRate> list = new ArrayList<>();
             for (long b : books) {
-                if (Math.random() > 0.02) continue;
+                if (Math.random() > 0.1) continue;
                 int score = (int) ((Math.random() * 10 + Math.random() * 10 + 3) / 2);
                 BookRate rate = new BookRate();
                 rate.setUserId(i);

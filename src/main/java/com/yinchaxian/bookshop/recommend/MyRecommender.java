@@ -19,7 +19,7 @@ import java.util.List;
 public class MyRecommender {
     public static List<Long> getRecommendForUser(int userId) throws Exception {
         //准备数据 这里是电影评分数据
-        File file = new File("E:\\rate.dat");
+        File file = new File("/home/yinchaxian/rate.dat");
         //将数据加载到内存中，GroupLensDataModel是针对开放电影评论数据的
         FileDataModel dataModel = new FileDataModel(file);
         //计算相似度，相似度算法有很多种，欧几里得、皮尔逊等等。
@@ -33,7 +33,7 @@ public class MyRecommender {
         List<Long> list = new ArrayList<>();
         //打印推荐的结果
         System.out.println("使用基于用户的协同过滤算法");
-        System.out.println("为用户5推荐10个商品");
+        System.out.println("为用户" + userId + "推荐10个商品");
         for (RecommendedItem item : itemList) {
             System.out.println(item.toString());
             list.add(item.getItemID());
@@ -44,7 +44,7 @@ public class MyRecommender {
 
     public static List<Long> getRecommendForItem(int userId, long bookId) throws Exception {
         //准备数据 这里是电影评分数据
-        File file = new File("E:\\rate.dat");
+        File file = new File("/home/yinchaxian/rate.dat");
         //将数据加载到内存中，GroupLensDataModel是针对开放电影评论数据的
         FileDataModel dataModel = new FileDataModel(file);
         //计算相似度，相似度算法有很多种，欧几里得、皮尔逊等等。
@@ -56,7 +56,7 @@ public class MyRecommender {
         List<Long> list = new ArrayList<>();
         //打印推荐的结果
         System.out.println("使用基于物品的协同过滤算法");
-        System.out.println("根据用户5当前浏览的商品2398，推荐10个相似的商品");
+        System.out.println("为用户" + userId + "推荐10个相似的商品");
         for (RecommendedItem item : itemList) {
             System.out.println(item);
             list.add(item.getItemID());
