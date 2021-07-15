@@ -139,11 +139,11 @@ public class BookController {
     @RequiresPermissions(value = {"book:insert", "book:*"}, logical = Logical.OR)
     public Result insertBook(@RequestBody Book book, HttpSession session) {
         int id = (int) session.getAttribute("userId");
-        int storeId = book.getStoreId();
-        int userId = storeService.selectStoreManagerId(storeId);
-        if (id != userId) {
-            return Result.error(ErrorMessage.authError);
+        Integer storeId = storeService.selectStoreId(id);
+        if (storeId == null) {
+            return Result.error(ErrorMessage.shopError);
         }
+        book.setStoreId(storeId);
         book.setDealMount(0);
         book.setLookMount(0);
         book.setScoreNumber(0);

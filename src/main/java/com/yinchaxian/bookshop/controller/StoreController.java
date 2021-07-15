@@ -95,7 +95,8 @@ public class StoreController {
     @RequiresPermissions(value = {"store:*", "store:update"}, logical = Logical.OR)
     public Result updateStore(@RequestBody Store store, HttpSession session) {
         int id = (int) session.getAttribute("userId");
-        if (id != store.getManagerId()) {
+        Integer managerId = storeService.selectStoreManagerId(store.getStoreId());
+        if (id != managerId) {
             return Result.error(ErrorMessage.authError);
         }
 

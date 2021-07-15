@@ -16,4 +16,5 @@ public interface ErrorMessage {
     String rateError = "未购买，不能评分";
     String unknownError = "未知错误";
     String storeError = "库存不足";
+    String shopError = "没有店铺";
 }

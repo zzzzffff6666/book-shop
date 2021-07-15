@@ -36,7 +36,7 @@ public class StoreService {
         return storeMapper.searchByName(name);
     }
 
-    public int selectStoreManagerId(int storeId) {
+    public Integer selectStoreManagerId(int storeId) {
         return storeMapper.selectManagerId(storeId);
     }
 
