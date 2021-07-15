@@ -273,15 +273,17 @@ public class BookController {
 
     /**
      * 查询店铺的图书
-     * @param storeId 店铺ID
      * @param page 页数，默认为 1
+     * @param session session信息
      * @return 查询结果
      */
-    @GetMapping(value = {"/book/store/{storeId}/list", "/book/store/{storeId}/list/{page}"})
+    @GetMapping(value = {"/book/store/list", "/book/store/list/{page}"})
     @RequiresAuthentication
-    public Result selectBookByStore(@PathVariable("storeId") int storeId,
-                                    @PathVariable(value = "page", required = false) Integer page) {
+    public Result selectBookByStore(@PathVariable(value = "page", required = false) Integer page,
+                                    HttpSession session) {
         if (page == null) page = 1;
+        int id = (int) session.getAttribute("userId");
+        int storeId = storeService.selectStoreId(id);
         PageHelper.startPage(page, bookPageAmount);
         PageInfo<Book> list = new PageInfo<>(bookService.selectBookByStore(storeId));
         return Result.success(list);
