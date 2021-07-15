@@ -36,7 +36,8 @@ public interface BookMapper {
             "pages = #{pages}, " +
             "catalog = #{catalog}, " +
             "pack_style = #{packStyle}, " +
-            "store_mount = #{storeMount} " +
+            "store_mount = #{storeMount}, " +
+            "price = #{price} " +
             "where book_id = #{bookId} " +
             "and store_id = #{storeId}")
     int updateInfo(Book book);
@@ -130,7 +131,7 @@ public interface BookMapper {
             "</foreach> " +
             "</script>")
     @ResultType(Book.class)
-    List<Book> selectBookByList(List<Integer> list);
+    List<Book> selectBookByList(List<Long> list);
 
     @Select("select * " +
             "from book " +
@@ -155,4 +156,9 @@ public interface BookMapper {
             "where book_id = #{bookId}")
     @ResultType(Integer.class)
     int selectStoreId(long bookId);
+
+    @Select("select book_id " +
+            "from book " +
+            "order by book_id")
+    List<Long> selectBookId();
 }

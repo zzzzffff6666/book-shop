@@ -1,13 +1,20 @@
 package com.yinchaxian.bookshop;
 
+import com.yinchaxian.bookshop.entity.BookRate;
 import com.yinchaxian.bookshop.entity.Store;
 import com.yinchaxian.bookshop.entity.User;
+import com.yinchaxian.bookshop.mapper.BookMapper;
+import com.yinchaxian.bookshop.mapper.BookRateMapper;
+import com.yinchaxian.bookshop.recommend.MyRecommender;
 import com.yinchaxian.bookshop.service.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 class BookShopApplicationTests {
@@ -22,6 +29,11 @@ class BookShopApplicationTests {
     private StoreService storeService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private BookRateMapper bookRateMapper;
+    @Autowired
+    private BookMapper bookMapper;
+
 
     @Test
     void contextLoads() {
@@ -51,6 +63,33 @@ class BookShopApplicationTests {
         store.setIntroduction("cccc");
         boolean suc = storeService.updateStore(store);
         System.out.println(suc);
+    }
+
+    @Test
+    void contextLoad3() {
+        try {
+            MyRecommender.getRecommendForUser(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void contextLoad4() {
+        List<Long> books = bookMapper.selectBookId();
+        for (int i = 0; i < 10; ++i) {
+            List<BookRate> list = new ArrayList<>();
+            for (long b : books) {
+                if (Math.random() > 0.02) continue;
+                int score = (int) ((Math.random() * 10 + Math.random() * 10 + 3) / 2);
+                BookRate rate = new BookRate();
+                rate.setUserId(i);
+                rate.setBookId(b);
+                rate.setScore(score);
+                list.add(rate);
+            }
+            bookRateMapper.insertAll(list);
+        }
     }
 
 }

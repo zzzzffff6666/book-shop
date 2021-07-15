@@ -4,11 +4,10 @@ import com.yinchaxian.bookshop.entity.Book;
 import com.yinchaxian.bookshop.entity.BookRate;
 import com.yinchaxian.bookshop.mapper.BookMapper;
 import com.yinchaxian.bookshop.mapper.BookRateMapper;
-import com.yinchaxian.bookshop.mapper.UserRecommendMapper;
+import com.yinchaxian.bookshop.recommend.MyRecommender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,8 +16,6 @@ public class BookService {
     private BookMapper bookMapper;
     @Autowired
     private BookRateMapper bookRateMapper;
-    @Autowired
-    private UserRecommendMapper recommendMapper;
 
     public boolean insertBook(Book book) {
         return bookMapper.insert(book) == 1;
@@ -99,7 +96,23 @@ public class BookService {
     }
 
     public List<Book> selectRecommend20Book(int userId) {
-        return bookMapper.selectBookByList(recommendMapper.selectRecommend20(userId));
+        List<Long> list;
+        try {
+            list = MyRecommender.getRecommendForUser(userId);
+        } catch (Exception e) {
+            return null;
+        }
+        return bookMapper.selectBookByList(list);
+    }
+
+    public List<Book> selectRelatedBook(int userId, long bookId) {
+        List<Long> list;
+        try {
+            list = MyRecommender.getRecommendForItem(userId, bookId);
+        } catch (Exception e) {
+            return null;
+        }
+        return bookMapper.selectBookByList(list);
     }
 
     public int selectBookStoreId(long bookId) {

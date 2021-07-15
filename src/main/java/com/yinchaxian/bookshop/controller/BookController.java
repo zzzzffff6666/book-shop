@@ -17,7 +17,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -187,6 +186,7 @@ public class BookController {
         if (id != userId) {
             return Result.error(ErrorMessage.authError);
         }
+        book.setBookId(bookId);
         book.setStoreId(storeId);
         boolean suc = bookService.updateBookInfo(book);
         return suc ? Result.success() : Result.error(ErrorMessage.updateError);
@@ -233,8 +233,7 @@ public class BookController {
      */
     @GetMapping(value = {"/book/list", "/book/list/{page}"})
     @RequiresAuthentication
-    public Result selectAllBook(@PathVariable(value = "page", required = false) Integer page,
-                                HttpSession session, HttpServletRequest request) {
+    public Result selectAllBook(@PathVariable(value = "page", required = false) Integer page) {
         if (page == null) page = 1;
         PageHelper.startPage(page, bookPageAmount);
         PageInfo<Book> list = new PageInfo<>(bookService.selectAllBook());
@@ -307,6 +306,7 @@ public class BookController {
 
     /**
      * 推荐当前热度前二十的书籍
+     * @param cateId 类别ID，没有该项则默认所有书籍中热度前二十
      * @return 推荐内容
      */
     @GetMapping("/book/top20")
@@ -322,16 +322,31 @@ public class BookController {
     }
 
     /**
-     * 推荐你可能喜欢的书籍
+     * 推荐用户可能喜欢的书籍
      * @param session session信息
      * @return 推荐内容
      */
     @GetMapping("/book/recommend20")
     @RequiresAuthentication
     public Result getRecommend20Book(HttpSession session) {
-        Map<String, Object> list = new HashMap<>();
         int id = (int) session.getAttribute("userId");
+        Map<String, Object> list = new HashMap<>();
         list.put("list", bookService.selectRecommend20Book(id));
+        return Result.success(list);
+    }
+
+    /**
+     * 推荐当前查看图书的相关推荐
+     * @param bookId 书籍ID
+     * @param session session信息
+     * @return 推荐结果
+     */
+    @GetMapping("/book/related/{bookId}")
+    @RequiresAuthentication
+    public Result getRelatedBook(@PathVariable("bookId") long bookId, HttpSession session) {
+        int id = (int) session.getAttribute("userId");
+        Map<String, Object> list = new HashMap<>();
+        list.put("list", bookService.selectRelatedBook(id, bookId));
         return Result.success(list);
     }
 
