@@ -64,7 +64,7 @@ public interface BookMapper {
     int updatePriceOnce(int storeId, float discount);
 
     @Update("update book " +
-            "set deal_mount = deal_amount + #{addition} " +
+            "set deal_mount = deal_mount + #{addition} " +
             "where book_id = #{bookId}")
     void updateDeal(long bookId, int addition);
 

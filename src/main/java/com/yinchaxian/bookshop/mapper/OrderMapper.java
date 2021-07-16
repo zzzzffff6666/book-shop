@@ -119,7 +119,7 @@ public interface OrderMapper {
             "where user_id = #{userId} " +
             "and book_id = #{bookId} " +
             "and status = 3 " +
-            "group by (orderId)")
+            "group by order_id")
     @ResultType(Integer.class)
     int selectTimesByUserAndBook(int userId, long bookId);
 }

@@ -313,7 +313,7 @@ public class OrderController {
         int id = (int) session.getAttribute("userId");
         int userId = orderService.selectOrderUserId(orderId);
         int storeId = orderService.selectOrderStoreId(orderId);
-        if (id != userId || id != storeId) {
+        if (id != userId && id != storeId) {
             return Result.error(ErrorMessage.authError);
         }
 
