@@ -129,13 +129,11 @@ public class UserController {
     @RequiresPermissions("user:update")
     public Result updateInfo(@RequestBody User user, HttpSession session) {
         int id = (int) session.getAttribute("userId");
-        if (id != user.getUserId()) {
-            return Result.error(ErrorMessage.authError);
-        }
 
         if (userService.isExist(user.getUsername())) {
             return Result.error(ErrorMessage.nameError);
         }
+        user.setUserId(id);
         boolean suc = userService.updateUserInfo(user);
         return suc ? Result.success() : Result.error(ErrorMessage.updateError);
     }
