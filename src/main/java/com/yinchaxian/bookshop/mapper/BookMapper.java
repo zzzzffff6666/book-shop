@@ -131,7 +131,7 @@ public interface BookMapper {
             "</foreach> " +
             "</script>")
     @ResultType(Book.class)
-    List<Book> selectBookByList(List<Long> list);
+    List<Book> selectBookByList(@Param("list") List<Long> list);
 
     @Select("select * " +
             "from book " +
