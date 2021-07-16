@@ -102,7 +102,7 @@ public class BookService {
         } catch (Exception e) {
             return null;
         }
-        return bookMapper.selectBookByList(list);
+        return !list.isEmpty() ? null : bookMapper.selectBookByList(list);
     }
 
     public List<Book> selectRelatedBook(int userId, long bookId) {
@@ -112,7 +112,7 @@ public class BookService {
         } catch (Exception e) {
             return null;
         }
-        return bookMapper.selectBookByList(list);
+        return !list.isEmpty() ? null : bookMapper.selectBookByList(list);
     }
 
     public int selectBookStoreId(long bookId) {
